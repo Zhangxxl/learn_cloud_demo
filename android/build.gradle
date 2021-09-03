@@ -1,0 +1,40 @@
+buildscript {
+    ext {
+        kotlin_version = '1.5.21'
+        appName = '智慧安监'
+    }
+    repositories {
+//        google()
+//        jcenter()
+        //阿里云云效maven(google)
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        //阿里云云效maven(maven central+jcenter)
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+//        google()
+//        jcenter()
+        //阿里云云效maven(google)
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        //阿里云云效maven(maven central+jcenter)
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
