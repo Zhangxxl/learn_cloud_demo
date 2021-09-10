@@ -94,7 +94,12 @@ class DarkTheme extends AppTheme {
   static late final instance = DarkTheme._();
 
   @override
-  ThemeData get theme => ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue);
+  ThemeData get theme => ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.blue,
+        accentColor: Colors.blue[500],
+        brightness: Brightness.dark,
+      ));
 
   @override
   int get themeId => 2;

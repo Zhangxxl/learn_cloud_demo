@@ -85,22 +85,23 @@ class Splash extends StatelessWidget {
           Get.changeThemeMode(ThemeMode.light);
           break;
       }
-      String route;
-      final globalController = Get.find<GlobalController>();
-      globalController.user.value = await LCUser.getCurrent();
-      if (globalController.user.value != null) {
-        route = Routes.PAGE_HOME;
-      } else {
-        route = Routes.PAGE_LOGIN;
-      }
-      final time = DateTime.now().millisecond - dateTime.millisecond;
-      if (time > WAIT_TIME) {
+    }
+    String route;
+    final globalController = Get.find<GlobalController>();
+    globalController.user.value = await LCUser.getCurrent();
+    if (globalController.user.value != null) {
+      route = Routes.PAGE_HOME;
+    } else {
+      route = Routes.PAGE_LOGIN;
+    }
+    final time = DateTime.now().millisecond - dateTime.millisecond;
+    logger.i("wait time: $time");
+    if (time > WAIT_TIME) {
+      Get.offAllNamed(route);
+    } else {
+      Future.delayed(Duration(milliseconds: WAIT_TIME - time), () {
         Get.offAllNamed(route);
-      } else {
-        Future.delayed(Duration(milliseconds: WAIT_TIME - time), () {
-          Get.offAllNamed(route);
-        });
-      }
+      });
     }
   }
 }

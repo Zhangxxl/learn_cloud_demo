@@ -22,13 +22,12 @@ class AboutMe extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("关于我们"),
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
-        backgroundColor: Colors.white,
         elevation: 1,
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,

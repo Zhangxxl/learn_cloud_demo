@@ -66,10 +66,8 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() => Text(
-                            globalController.user.value?.nickname ?? "",
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                          )),
+                      Obx(() => Text(globalController.user.value?.nickname ?? "",
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500))),
                       const SizedBox(height: 10),
                       Obx(() => Text(globalController.user.value?.mobile ?? ""))
                     ],
@@ -85,7 +83,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
               text: "清除缓存",
               info: _controller.cacheStr.value,
               click: () {
-                if (!GetPlatform.isMobile) {
+                if (GetPlatform.isWeb || !GetPlatform.isMobile) {
                   EasyLoading.showToast("清理缓存仅支持移动平台");
                   return;
                 }
@@ -169,25 +167,32 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
                   ]),
                 );
               }),
-          Container(
-            color: Get.theme.shadowColor,
-            padding: const EdgeInsets.only(right: 3, left: 3),
-            width: double.infinity,
-            height: 50,
-            child: OutlinedButton(
-              onPressed: logout,
-              style: ButtonStyle(
-                shadowColor: MaterialStateProperty.all(Colors.transparent),
-                side: MaterialStateProperty.all(BorderSide.none),
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 3, right: 3),
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: DecoratedBox(
+                decoration: ShapeDecoration(
+                  color: Get.theme.primaryColor,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                ),
+                child: OutlinedButton(
+                  onPressed: logout,
+                  style: ButtonStyle(
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                    side: MaterialStateProperty.all(BorderSide.none),
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
+                  ),
+                  child: const Text("安全退出", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
+                ),
               ),
-              child: const Text("安全退出", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
             ),
           ),
         ],
       ),
-    );
+    ); /*  */
   }
 
   @override
