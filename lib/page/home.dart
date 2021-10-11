@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import '../component/mine.dart';
 import '../component/notice.dart';
 import '../component/web_frame.dart';
+import '../generated/assets.gen.dart';
+import '../generated/l10n.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -17,9 +19,9 @@ import '../component/web_frame.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  static const _titles = ["通知", "工作台", "我的"];
+  late final _titles = [S.current.notice, S.current.work_station, S.current.mine];
   final _pageController = PageController();
-  late final controller = Get.put(HomeController());
+  late final controller = Get.put(HomeController()..title.value = _titles[0]);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -41,27 +43,24 @@ class Home extends StatelessWidget {
             currentIndex: controller.currentIndex.value,
             unselectedFontSize: 14,
             onTap: _onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage("resources/image/ic_notication.webp")), label: "通知"),
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage("resources/image/ic_work.webp")),
-                label: "工作台",
-              ),
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage("resources/image/ic_mine.webp")), label: "我的"),
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotication), label: _titles[0]),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icWork), label: _titles[1]),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icMine), label: _titles[2]),
             ],
           ),
         ),
       );
 
   Future<void> _onItemTapped(int value) async {
-    _pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.ease);
-    controller.title.value = Home._titles[value];
+    await _pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    controller.title.value = _titles[value];
     controller.currentIndex.value = value;
   }
 }
 
 class HomeController extends GetxController {
-  final title = Home._titles[0].obs;
+  final title = RxString("");
   final currentIndex = 0.obs;
   final subSystem = Get.parameters["subSystem"] ?? "";
 }

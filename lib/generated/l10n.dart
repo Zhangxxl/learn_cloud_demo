@@ -259,6 +259,36 @@ class S {
       args: [],
     );
   }
+
+  /// `notice`
+  String get notice {
+    return Intl.message(
+      'notice',
+      name: 'notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `workstation`
+  String get work_station {
+    return Intl.message(
+      'workstation',
+      name: 'work_station',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `mine`
+  String get mine {
+    return Intl.message(
+      'mine',
+      name: 'mine',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../generated/assets.gen.dart';
+
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
 ///
@@ -37,7 +39,7 @@ class AboutMe extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("resources/image/ic_splash.webp", width: 55, height: 55),
+                Assets.resources.image.icSplash.image(width: 55, height: 55),
                 const SizedBox(height: 30),
                 Obx(() => Text(_controller.appName.value, style: const TextStyle(fontSize: 16))),
                 const SizedBox(height: 15),

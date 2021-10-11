@@ -20,5 +20,8 @@
   "theme_blue": "Blue",
   "theme_purple": "Purple",
   "theme_red": "Red",
-  "theme_dark": "Dark"
+  "theme_dark": "Dark",
+  "notice":"notice",
+  "work_station":"workstation",
+  "mine":"mine"
 }

@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yicbridge_aj_app/theme/themes.dart';
 
+import '../generated/assets.gen.dart';
 import '../router/routes.dart';
+import '../theme/themes.dart';
 import '../util/global.dart';
 import '../util/global_controller.dart';
 
@@ -36,14 +37,14 @@ class Splash extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           FractionallySizedBox(
-            child: Image.asset("resources/image/ic_splash.webp"),
+            child: Assets.resources.image.icSplash.image(),
             widthFactor: 0.6,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 50, bottom: 80),
             child: FractionallySizedBox(
               widthFactor: 0.4,
-              child: Image.asset("resources/image/ic_splash_word.webp"),
+              child: Assets.resources.image.icSplashWord.image(),
             ),
           )
         ],

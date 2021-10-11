@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("forget the password"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_fail": MessageLookupByLibrary.simpleMessage("Login failed"),
+        "mine": MessageLookupByLibrary.simpleMessage("mine"),
+        "notice": MessageLookupByLibrary.simpleMessage("notice"),
         "pwdHint":
             MessageLookupByLibrary.simpleMessage("Please input password"),
         "register": MessageLookupByLibrary.simpleMessage("register"),
@@ -49,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_purple": MessageLookupByLibrary.simpleMessage("Purple"),
         "theme_red": MessageLookupByLibrary.simpleMessage("Red"),
         "theme_setting": MessageLookupByLibrary.simpleMessage("Theme setting"),
-        "waiting": MessageLookupByLibrary.simpleMessage("please wait...")
+        "waiting": MessageLookupByLibrary.simpleMessage("please wait..."),
+        "work_station": MessageLookupByLibrary.simpleMessage("workstation")
       };
 }

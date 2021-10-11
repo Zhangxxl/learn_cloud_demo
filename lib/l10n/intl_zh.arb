@@ -20,5 +20,8 @@
   "theme_blue":"蓝色",
   "theme_purple":"紫色",
   "theme_red":"红色",
-  "theme_dark": "Dark"
+  "theme_dark": "Dark",
+  "notice":"通知",
+  "work_station":"工作台",
+  "mine":"我的"
 }

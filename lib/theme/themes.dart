@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yicbridge_aj_app/constant.dart';
-import 'package:yicbridge_aj_app/util/global.dart';
 
+import '../constant.dart';
 import '../generated/l10n.dart';
+import '../util/global.dart';
 
 abstract class AppTheme {
   abstract final ThemeData theme;
@@ -52,7 +52,7 @@ class BlueTheme extends AppTheme {
   static late final instance = BlueTheme._();
 
   @override
-  ThemeData get theme => ThemeData(primarySwatch: Colors.blue);
+  ThemeData theme = ThemeData(primarySwatch: Colors.blue);
 
   @override
   int get themeId => 0;
@@ -66,7 +66,7 @@ class RedTheme extends AppTheme {
   static late final instance = RedTheme._();
 
   @override
-  ThemeData get theme => ThemeData(primarySwatch: Colors.red);
+  ThemeData theme = ThemeData(primarySwatch: Colors.red);
 
   @override
   int get themeId => 1;
@@ -80,7 +80,7 @@ class PurpleTheme extends AppTheme {
   static late final instance = PurpleTheme._();
 
   @override
-  ThemeData get theme => ThemeData(primarySwatch: Colors.purple);
+  ThemeData theme = ThemeData(primarySwatch: Colors.purple);
 
   @override
   int get themeId => 2;
@@ -94,12 +94,12 @@ class DarkTheme extends AppTheme {
   static late final instance = DarkTheme._();
 
   @override
-  ThemeData get theme => ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.blue,
-        accentColor: Colors.blue[500],
-        brightness: Brightness.dark,
-      ));
+  ThemeData theme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+    primarySwatch: Colors.blue,
+    accentColor: Colors.blue[500],
+    brightness: Brightness.dark,
+  ));
 
   @override
   int get themeId => 2;

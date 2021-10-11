@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
 
+import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../my_color.dart';
 
@@ -62,7 +63,7 @@ class Register extends StatelessWidget {
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
                     enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
                     suffixIcon: IconButton(
-                      icon: const ImageIcon(AssetImage("resources/image/ic_clean.webp"), size: 14, color: MyColor.gray),
+                      icon: ImageIcon(Assets.resources.image.icClean, size: 14, color: MyColor.gray),
                       onPressed: () => pwdController.clear(),
                     ),
                   ),

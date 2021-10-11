@@ -4,11 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:yicbridge_aj_app/util/global_controller.dart';
 
+import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../my_color.dart';
 import '../router/routes.dart';
+import '../util/global_controller.dart';
 import '../util/string_ext.dart';
 
 /// Copyright © 2021 yunjia Ltd.
@@ -38,7 +39,7 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset("resources/image/ic_home.webp", width: 126, height: 95),
+            Assets.resources.image.icHome.image(width: 126, height: 95),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 22),
               child: TextField(
@@ -61,8 +62,8 @@ class Login extends StatelessWidget {
                   enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
                   suffixIcon: IconButton(
                     onPressed: () => pwdController.clear(),
-                    icon: const ImageIcon(
-                      AssetImage("resources/image/ic_clean.webp"),
+                    icon: ImageIcon(
+                      Assets.resources.image.icClean,
                       size: 14,
                       color: MyColor.gray,
                     ),

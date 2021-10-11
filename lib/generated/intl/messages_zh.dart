@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgetPwd": MessageLookupByLibrary.simpleMessage("忘记密码"),
         "login": MessageLookupByLibrary.simpleMessage("登录"),
         "login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
+        "mine": MessageLookupByLibrary.simpleMessage("我的"),
+        "notice": MessageLookupByLibrary.simpleMessage("通知"),
         "pwdHint": MessageLookupByLibrary.simpleMessage("请输入密码"),
         "register": MessageLookupByLibrary.simpleMessage("注册"),
         "registerAcc": MessageLookupByLibrary.simpleMessage("注册账号"),
@@ -41,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_purple": MessageLookupByLibrary.simpleMessage("紫色"),
         "theme_red": MessageLookupByLibrary.simpleMessage("红色"),
         "theme_setting": MessageLookupByLibrary.simpleMessage("主题设置"),
-        "waiting": MessageLookupByLibrary.simpleMessage("请稍后...")
+        "waiting": MessageLookupByLibrary.simpleMessage("请稍后..."),
+        "work_station": MessageLookupByLibrary.simpleMessage("工作台")
       };
 }

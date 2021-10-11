@@ -98,7 +98,7 @@ packages:
       name: characters
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -141,6 +141,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.15.0"
+  color:
+    dependency: transitive
+    description:
+      name: color
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   convert:
     dependency: transitive
     description:
@@ -176,6 +183,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
+  dartx:
+    dependency: transitive
+    description:
+      name: dartx
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.7.1"
   date_format:
     dependency: "direct main"
     description:
@@ -286,6 +300,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.1"
+  flutter_gen_core:
+    dependency: transitive
+    description:
+      name: flutter_gen_core
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
+  flutter_gen_runner:
+    dependency: "direct dev"
+    description:
+      name: flutter_gen_runner
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -604,6 +632,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.3.0"
   platform:
     dependency: transitive
     description:
@@ -819,6 +854,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.3"
+  time:
+    dependency: transitive
+    description:
+      name: time
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   timing:
     dependency: transitive
     description:
@@ -910,6 +952,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.0"
   yaml:
     dependency: transitive
     description:
@@ -918,5 +967,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0-0 <3.0.0"
+  dart: ">=2.14.0 <3.0.0"
   flutter: ">=2.0.0"

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/assets.gen.dart';
+
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
 ///
@@ -18,7 +20,7 @@ class EmptyView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Image.asset("resources/image/icon_empty_dynamic.jpg"), const Text("暂时还没有内容哦")],
+          children: [Assets.resources.image.iconEmptyDynamic.image(), const Text("暂时还没有内容哦")],
         ),
       );
 }

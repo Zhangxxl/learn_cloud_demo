@@ -9,6 +9,7 @@ import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../http/http_api.dart';
 import '../model/user.dart';
@@ -77,9 +78,9 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
             ),
           ),
           const SizedBox(height: 10, width: double.infinity),
-          buildItem(iconAsset: "resources/image/ic_modify_pwd.webp", text: "修改密码", click: modifyPassword),
+          buildItem(iconAsset: Assets.resources.image.icModifyPwd, text: "修改密码", click: modifyPassword),
           Obx(() => buildItem(
-              iconAsset: "resources/image/ic_clean_cache.webp",
+              iconAsset: Assets.resources.image.icCleanCache,
               text: "清除缓存",
               info: _controller.cacheStr.value,
               click: () {
@@ -109,13 +110,13 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
               })),
           if (GetPlatform.isAndroid)
             buildItem(
-              iconAsset: "resources/image/ic_check_update.webp",
+              iconAsset: Assets.resources.image.icCheckUpdate,
               text: "检查更新",
               click: () => checkAppUpdate(),
             ),
-          buildItem(iconAsset: "resources/image/ic_about_me.webp", text: "关于我们", click: () => Get.toNamed(Routes.PAGE_ABOUT_ME)),
+          buildItem(iconAsset: Assets.resources.image.icAboutMe, text: "关于我们", click: () => Get.toNamed(Routes.PAGE_ABOUT_ME)),
           buildItem(
-              iconAsset: "resources/image/ic_about_me.webp",
+              iconAsset: Assets.resources.image.icAboutMe,
               text: S.of(context).theme_setting,
               click: () {
                 if (Get.isDarkMode) {
@@ -138,7 +139,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
                 );
               }),
           buildItem(
-              iconAsset: "resources/image/ic_about_me.webp",
+              iconAsset: Assets.resources.image.icAboutMe,
               text: S.of(context).theme_mode_setting,
               click: () {
                 Get.dialog(
@@ -198,7 +199,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  Widget buildItem({required String iconAsset, required String text, required VoidCallback click, String? info}) => ColoredBox(
+  Widget buildItem({required AssetImage iconAsset, required String text, required VoidCallback click, String? info}) => ColoredBox(
         color: Get.theme.dialogBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 4),
@@ -215,7 +216,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ImageIcon(AssetImage(iconAsset), size: 16),
+                  ImageIcon(iconAsset, size: 16),
                   const SizedBox(width: 12),
                   Text(text, style: Get.theme.textTheme.subtitle1),
                   const Spacer(),

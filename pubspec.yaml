@@ -74,6 +74,7 @@ dev_dependencies:
   json_serializable: ^5.0.0
   build_runner: ^2.1.1
   flutter_lints: ^1.0.4
+  flutter_gen_runner: ^4.0.0
 
 dev_dependency_overrides:
 
@@ -122,3 +123,23 @@ flutter:
   generate: true
 flutter_intl:
   enabled: true
+
+flutter_gen:
+  output: lib/generated/
+  line_length: 120
+
+  integrations:
+    flutter_svg: false
+    flare_flutter: false
+
+  assets:
+    enabled: true
+    package_parameter_enabled: false
+    style: dot-delimiter
+
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs: []
