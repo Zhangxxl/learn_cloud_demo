@@ -1,8 +1,12 @@
 package com.yicbridge.smartzj
 
+import cn.leancloud.LCInstallation
+import cn.leancloud.LCLogger
+import cn.leancloud.LeanCloud
+import cn.leancloud.im.LCIMOptions
 import io.flutter.app.FlutterApplication;
 
-public class MyApplication : FlutterApplication {
+class MyApplication : FlutterApplication() {
 
     override fun onCreate() {
         super.onCreate();
@@ -12,6 +16,7 @@ public class MyApplication : FlutterApplication {
         LeanCloud.setLogLevel(LCLogger.Level.DEBUG)
         // 提供 this、App ID、App Key、Server Host 作为参数
         // 请将 xxx.example.com 替换为你的应用绑定的 API 域名
-        LeanCloud.initialize(this, "V2rjnSVoPoLIIiGskzsl73sC-gzGzoHsz", "n7kIP1iWSzW4EGeSo7NfMmPn", "https://please-replace-with-your-customized.domain.com");
+        LeanCloud.initialize(this, "V2rjnSVoPoLIIiGskzsl73sC-gzGzoHsz", "n7kIP1iWSzW4EGeSo7NfMmPn", "https://please-replace-with-your-customized.domain.com")
+        LCInstallation.getCurrentInstallation().saveInBackground();
     }
 }
