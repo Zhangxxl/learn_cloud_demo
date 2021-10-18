@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../generated/assets.gen.dart';
 import '../router/routes.dart';
@@ -28,7 +27,6 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     work(DateTime.now());
-
     return Container(
       color: Colors.white,
       alignment: Alignment.center,
@@ -53,40 +51,39 @@ class Splash extends StatelessWidget {
   }
 
   Future<void> work(DateTime dateTime) async {
-    sp = await SharedPreferences.getInstance();
-    final localTheme = AppTheme.loadThemeFromLocal();
-    if (Get.theme != localTheme.theme) {
-      Get.changeTheme(localTheme.theme);
-    }
-    final localThemeMode = AppTheme.loadThemeModeFromLocal();
-    final int currentThemeMode;
-    switch (Get.rootController.themeMode) {
-      case ThemeMode.system:
-        currentThemeMode = AppTheme.THEME_MODE_SYSTEM;
-        break;
-      case ThemeMode.dark:
-        currentThemeMode = AppTheme.THEME_MODE_DARK;
-        break;
-      case ThemeMode.light:
-        currentThemeMode = AppTheme.THEME_MODE_LIGHT;
-        break;
-      default:
-        currentThemeMode = AppTheme.THEME_MODE_LIGHT;
-        break;
-    }
-    if (currentThemeMode != localThemeMode) {
-      switch (localThemeMode) {
-        case AppTheme.THEME_MODE_SYSTEM:
-          Get.changeThemeMode(ThemeMode.system);
-          break;
-        case AppTheme.THEME_MODE_DARK:
-          Get.changeThemeMode(ThemeMode.dark);
-          break;
-        case AppTheme.THEME_MODE_LIGHT:
-          Get.changeThemeMode(ThemeMode.light);
-          break;
-      }
-    }
+    // final localTheme = AppTheme.loadThemeFromLocal();
+    // if (Get.theme != localTheme.theme) {
+    //   Get.changeTheme(localTheme.theme);
+    // }
+    // final localThemeMode = AppTheme.loadThemeModeFromLocal();
+    // final int currentThemeMode;
+    // switch (Get.rootController.themeMode) {
+    //   case ThemeMode.system:
+    //     currentThemeMode = AppTheme.THEME_MODE_SYSTEM;
+    //     break;
+    //   case ThemeMode.dark:
+    //     currentThemeMode = AppTheme.THEME_MODE_DARK;
+    //     break;
+    //   case ThemeMode.light:
+    //     currentThemeMode = AppTheme.THEME_MODE_LIGHT;
+    //     break;
+    //   default:
+    //     currentThemeMode = AppTheme.THEME_MODE_LIGHT;
+    //     break;
+    // }
+    // if (currentThemeMode != localThemeMode) {
+    //   switch (localThemeMode) {
+    //     case AppTheme.THEME_MODE_SYSTEM:
+    //       Get.changeThemeMode(ThemeMode.system);
+    //       break;
+    //     case AppTheme.THEME_MODE_DARK:
+    //       Get.changeThemeMode(ThemeMode.dark);
+    //       break;
+    //     case AppTheme.THEME_MODE_LIGHT:
+    //       Get.changeThemeMode(ThemeMode.light);
+    //       break;
+    //   }
+    // }
     String route;
     final globalController = Get.find<GlobalController>();
     globalController.user.value = await LCUser.getCurrent();

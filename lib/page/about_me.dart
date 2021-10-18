@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../generated/assets.gen.dart';
+import '../generated/l10n.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -23,7 +24,7 @@ class AboutMe extends StatelessWidget {
     getVersion();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("关于我们"),
+        title: Text(S.of(context).about_us),
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         elevation: 1,
@@ -43,7 +44,8 @@ class AboutMe extends StatelessWidget {
                 const SizedBox(height: 30),
                 Obx(() => Text(_controller.appName.value, style: const TextStyle(fontSize: 16))),
                 const SizedBox(height: 15),
-                Obx(() => Text("版本号: ${_controller.version}(${_controller.buildNum.value})", style: const TextStyle(fontSize: 15))),
+                Obx(() => Text(S.of(context).version_message(_controller.version, _controller.buildNum.value),
+                    style: const TextStyle(fontSize: 15))),
               ],
             )
           ],

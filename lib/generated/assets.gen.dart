@@ -42,6 +42,7 @@ class $ResourcesTextGen {
   const $ResourcesTextGen();
 
   String get learnCloudKey => 'resources/text/learn_cloud_key.json';
+  String get supportLanguages => 'resources/text/support_languages.json';
 }
 
 class Assets {

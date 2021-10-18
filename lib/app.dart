@@ -3,12 +3,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:yicbridge_aj_app/theme/themes.dart';
 
 import 'generated/l10n.dart';
 import 'my_color.dart';
 import 'router/routes.dart';
+import 'theme/themes.dart';
 import 'util/global_controller.dart';
+import 'util/laguage_utils.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -19,68 +20,69 @@ import 'util/global_controller.dart';
 /// [date]     : 2021/6/21 0021
 /// [email]    : zhangxx@yunjiacloud.com
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final controller = Get.put(GlobalController());
 
   @override
-  Widget build(BuildContext context) {
-    init();
-    return GetMaterialApp(
-      title: "测试应用",
-      theme: AppTheme.defaultTheme.theme,
-      darkTheme: AppTheme.darkTheme.theme,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      // locale: const Locale.fromSubtags(languageCode: "en"),
-      getPages: Routes.pages,
-      initialRoute: Routes.PAGE_SPLASH,
-      builder: EasyLoading.init(),
-      routingCallback: routingCallback,
-    );
-  }
+  Widget build(BuildContext context) => GetMaterialApp(
+        theme: AppTheme.loadThemeFromLocal().theme,
+        darkTheme: AppTheme.darkTheme.theme,
+        themeMode: AppTheme.loadThemeModeFromLocal(),
+        onGenerateTitle: (context) => S.of(context).appName,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        locale: LanguageUtils.getInstance().getLanguage()?.locale,
+        getPages: Routes.pages,
+        initialRoute: Routes.PAGE_SPLASH,
+        builder: EasyLoading.init(builder: (context, child) {
+          init(context);
+          return child!;
+        }),
+        routingCallback: routingCallback,
+      );
 
-  void init() {
-    Get.put(GlobalController());
-    _configRefresh();
-    _configLoading();
+  void init(BuildContext context) {
+    _configRefresh(context);
+    _configLoading(context);
   }
 
   void routingCallback(Routing? value) {
     EasyLoading.dismiss();
   }
 
-  void _configRefresh() {
+  void _configRefresh(BuildContext context) {
     EasyRefresh.defaultHeader = ClassicalHeader(
-      refreshedText: "刷新完成",
-      infoText: "上次刷新：%T",
-      noMoreText: "没有更多了",
-      refreshFailedText: "刷新失败",
-      refreshingText: "正在刷新",
-      refreshReadyText: "下拉刷新",
-      refreshText: "松开刷新",
+      refreshedText: S.of(context).refresh_complete,
+      infoText: S.of(context).last_refresh_info,
+      refreshFailedText: S.of(context).refresh_fail,
+      refreshingText: S.of(context).refreshing,
+      refreshReadyText: S.of(context).pull_down_to_refresh,
+      refreshText: S.of(context).release_to_refresh,
+      noMoreText: S.of(context).no_more,
       textColor: MyColor.gray,
       infoColor: MyColor.gray,
       enableHapticFeedback: false,
     );
     EasyRefresh.defaultFooter = ClassicalFooter(
-      loadedText: "加载完成",
-      infoText: "上次加载：%T",
-      loadFailedText: "加载失败",
-      loadReadyText: "上拉加载",
-      loadingText: "正在加载",
-      loadText: "松开加载",
-      noMoreText: "没有更多了",
+      loadedText: S.of(context).load_complete,
+      infoText: S.of(context).last_load_info,
+      loadFailedText: S.of(context).load_fail,
+      loadReadyText: S.of(context).pull_up_to_load,
+      loadingText: S.of(context).loading,
+      loadText: S.of(context).release_to_load,
+      noMoreText: S.of(context).no_more,
       textColor: MyColor.gray,
       infoColor: MyColor.gray,
       enableHapticFeedback: false,
     );
   }
 
-  void _configLoading() {
+  void _configLoading(BuildContext context) {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 1500)
       ..indicatorType = EasyLoadingIndicatorType.fadingCircle

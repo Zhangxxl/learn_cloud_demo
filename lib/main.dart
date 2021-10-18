@@ -4,11 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yicbridge_aj_app/constant.dart';
 
 import 'app.dart';
+import 'util/global.dart';
 
 Future<void> main() async {
+  sp = await SharedPreferences.getInstance();
   if (kDebugMode && GetPlatform.isAndroid && !GetPlatform.isWeb) {
     WidgetsFlutterBinding.ensureInitialized();
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
@@ -18,5 +21,5 @@ Future<void> main() async {
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
   }
   LeanCloud.initialize(Constant.LEAN_APP_ID, Constant.LEAN_APP_KEY, queryCache: LCQueryCache());
-  runApp(const MyApp());
+  runApp(MyApp());
 }

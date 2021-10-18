@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constant.dart';
 import '../generated/l10n.dart';
+import '../util/ext/map_ext.dart';
 import '../util/global.dart';
 
 abstract class AppTheme {
@@ -13,11 +14,8 @@ abstract class AppTheme {
   static late final defaultTheme = BlueTheme.instance;
   static late final darkTheme = DarkTheme.instance;
 
-  static const int THEME_MODE_SYSTEM = 0;
-  static const int THEME_MODE_DARK = 1;
-  static const int THEME_MODE_LIGHT = 2;
+  static const themeModes = {0: ThemeMode.system, 1: ThemeMode.dark, 2: ThemeMode.light};
 
-  static int currentThemeMode = THEME_MODE_SYSTEM;
   static late AppTheme currentTheme = defaultTheme;
 
   static AppTheme loadThemeFromLocal() {
@@ -33,16 +31,13 @@ abstract class AppTheme {
     await sp.setInt(Constant.SP_KEY_THEME, theme.themeId);
   }
 
-  static int loadThemeModeFromLocal() {
+  static ThemeMode loadThemeModeFromLocal() {
     final mode = sp.getInt(Constant.SP_KEY_THEME_MODE);
-    if (mode != null) {
-      currentThemeMode = mode;
-    }
-    return currentThemeMode;
+    return mode == null ? ThemeMode.system : themeModes[mode]!;
   }
 
-  static Future<void> saveThemeModeFromLocal(int mode) async {
-    await sp.setInt(Constant.SP_KEY_THEME_MODE, mode);
+  static Future<void> saveThemeModeFromLocal(ThemeMode mode) async {
+    await sp.setInt(Constant.SP_KEY_THEME_MODE, themeModes.findFirst((k, v) => v == mode)!.key);
   }
 }
 

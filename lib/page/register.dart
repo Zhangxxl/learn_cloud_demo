@@ -29,7 +29,7 @@ class Register extends StatelessWidget {
     pwdController.addListener(inputListener);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("新用户注册"),
+          title: Text(S.of(context).user_register),
           centerTitle: true,
           leading: IconButton(icon: const Icon(Icons.arrow_back_ios_outlined), onPressed: () => Get.back()),
           actions: [

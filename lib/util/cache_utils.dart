@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:yicbridge_aj_app/util/global.dart';
+
+import 'global.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -57,7 +58,7 @@ class CacheUtils {
       return true;
     } catch (e) {
       logger.e(e);
-      EasyLoading.showToast("文件系统异常");
+      EasyLoading.showToast("文件系统错误");
       return false;
     }
   }

@@ -10,6 +10,5 @@ import 'package:leancloud_storage/leancloud.dart';
 /// [date]     : 2021/6/22 0022
 /// [email]    : zhangxx@yunjiacloud.com
 class GlobalController extends GetxController {
-    Rx<LCUser?> user = Rx(null);
-
+  final Rx<LCUser?> user = Rx(null);
 }

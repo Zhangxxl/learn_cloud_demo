@@ -19,9 +19,8 @@ import '../generated/l10n.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  late final _titles = [S.current.notice, S.current.work_station, S.current.mine];
   final _pageController = PageController();
-  late final controller = Get.put(HomeController()..title.value = _titles[0]);
+  late final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -44,9 +43,9 @@ class Home extends StatelessWidget {
             unselectedFontSize: 14,
             onTap: _onItemTapped,
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotication), label: _titles[0]),
-              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icWork), label: _titles[1]),
-              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icMine), label: _titles[2]),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotication), label: S.current.notice),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icWork), label: S.current.work_station),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icMine), label: S.current.mine),
             ],
           ),
         ),
@@ -54,13 +53,14 @@ class Home extends StatelessWidget {
 
   Future<void> _onItemTapped(int value) async {
     await _pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    final _titles = [S.current.notice, S.current.work_station, S.current.mine];
     controller.title.value = _titles[value];
     controller.currentIndex.value = value;
   }
 }
 
 class HomeController extends GetxController {
-  final title = RxString("");
+  late final title = S.current.notice.obs;
   final currentIndex = 0.obs;
   final subSystem = Get.parameters["subSystem"] ?? "";
 }

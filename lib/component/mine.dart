@@ -16,9 +16,10 @@ import '../model/user.dart';
 import '../router/routes.dart';
 import '../theme/themes.dart';
 import '../util/cache_utils.dart';
+import '../util/ext/list_ext.dart';
 import '../util/global.dart';
 import '../util/global_controller.dart';
-import '../util/list_ext.dart';
+import '../util/laguage_utils.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -44,7 +45,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
     if (GetPlatform.isMobile) {
       CacheUtils.getCacheSize().then((value) => _controller.cacheStr.value = value);
     } else {
-      _controller.cacheStr.value = "清理缓存仅支持移动平台";
+      _controller.cacheStr.value = S.current.clean_cache_warning;
     }
   }
 
@@ -78,32 +79,32 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
             ),
           ),
           const SizedBox(height: 10, width: double.infinity),
-          buildItem(iconAsset: Assets.resources.image.icModifyPwd, text: "修改密码", click: modifyPassword),
+          buildItem(iconAsset: Assets.resources.image.icModifyPwd, text: S.of(context).modify_password, click: modifyPassword),
           Obx(() => buildItem(
               iconAsset: Assets.resources.image.icCleanCache,
-              text: "清除缓存",
+              text: S.of(context).clean_cache,
               info: _controller.cacheStr.value,
               click: () {
                 if (GetPlatform.isWeb || !GetPlatform.isMobile) {
-                  EasyLoading.showToast("清理缓存仅支持移动平台");
+                  EasyLoading.showToast(S.of(context).clean_cache_warning);
                   return;
                 }
                 Get.dialog(AlertDialog(
-                  title: const Text("清空缓存"),
-                  content: const Text("确认要清空缓存吗?"),
+                  title: Text(S.of(context).clean_cache),
+                  content: Text(S.of(context).confirm_clean_cache),
                   actions: [
                     TextButton(
-                        child: const Text("取消"),
+                        child: Text(S.of(context).btn_ok),
                         onPressed: () {
                           Get.back();
                         }),
                     TextButton(
-                        child: const Text("确定"),
+                        child: Text(S.of(context).btn_cancel),
                         onPressed: () async {
                           final bool result = await CacheUtils.clearCache();
                           _controller.cacheStr.value = "0.00B";
                           Get.back();
-                          EasyLoading.showToast("清理${result ? "成功" : "失败"}");
+                          EasyLoading.showToast(S.of(context).clean + (result ? S.of(context).info_success : S.of(context).info_fail));
                         }),
                   ],
                 ));
@@ -111,10 +112,14 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
           if (GetPlatform.isAndroid)
             buildItem(
               iconAsset: Assets.resources.image.icCheckUpdate,
-              text: "检查更新",
+              text: S.of(context).check_update,
               click: () => checkAppUpdate(),
             ),
-          buildItem(iconAsset: Assets.resources.image.icAboutMe, text: "关于我们", click: () => Get.toNamed(Routes.PAGE_ABOUT_ME)),
+          buildItem(
+            iconAsset: Assets.resources.image.icAboutMe,
+            text: S.of(context).about_us,
+            click: () => Get.toNamed(Routes.PAGE_ABOUT_ME),
+          ),
           buildItem(
               iconAsset: Assets.resources.image.icAboutMe,
               text: S.of(context).theme_setting,
@@ -141,32 +146,50 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
           buildItem(
               iconAsset: Assets.resources.image.icAboutMe,
               text: S.of(context).theme_mode_setting,
-              click: () {
-                Get.dialog(
+              click: () async {
+                final ThemeMode? result = await Get.dialog(
                   SimpleDialog(title: Text(S.of(context).theme_setting), children: [
                     SimpleDialogOption(
                         child: Text(S.of(context).theme_mode_default, style: Get.theme.textTheme.button),
-                        onPressed: () {
-                          Get.changeThemeMode(ThemeMode.system);
-                          Get.back();
-                          AppTheme.saveThemeModeFromLocal(AppTheme.THEME_MODE_SYSTEM);
+                        onPressed: () async {
+                          await AppTheme.saveThemeModeFromLocal(ThemeMode.system);
+                          Get.back(result: ThemeMode.system);
                         }),
                     SimpleDialogOption(
                         child: Text(S.of(context).theme_mode_dark, style: Get.theme.textTheme.button),
-                        onPressed: () {
-                          Get.changeThemeMode(ThemeMode.dark);
-                          Get.back();
-                          AppTheme.saveThemeModeFromLocal(AppTheme.THEME_MODE_DARK);
+                        onPressed: () async {
+                          await AppTheme.saveThemeModeFromLocal(ThemeMode.dark);
+                          Get.back(result: ThemeMode.dark);
                         }),
                     SimpleDialogOption(
                         child: Text(S.of(context).theme_mode_light, style: Get.theme.textTheme.button),
-                        onPressed: () {
-                          Get.changeThemeMode(ThemeMode.light);
-                          Get.back();
-                          AppTheme.saveThemeModeFromLocal(AppTheme.THEME_MODE_LIGHT);
+                        onPressed: () async {
+                          await AppTheme.saveThemeModeFromLocal(ThemeMode.light);
+                          Get.back(result: ThemeMode.light);
                         })
                   ]),
                 );
+                if (result != null) {
+                  Get.changeThemeMode(result);
+                }
+                logger.i("result: $result");
+              }),
+          buildItem(
+              iconAsset: Assets.resources.image.icAboutMe,
+              text: S.of(context).change_language,
+              click: () async {
+                final SupportLanguage? selectLanguage = LanguageUtils.getInstance().getLanguage();
+                final supportLocale = await LanguageUtils.getInstance().getSupportLocal()
+                  ..insert(0, LanguageUtils.getAutoLocale(context));
+                final List<SimpleDialogOption> options = supportLocale.map((e) {
+                  final Color? color = (selectLanguage != null && selectLanguage.code == e.code) ? context.theme.primaryColor : null;
+                  final TextStyle style = TextStyle(inherit: true, color: color);
+                  return SimpleDialogOption(child: Text(e.name, style: style), onPressed: () => Get.back(result: e));
+                }).toList();
+                final SupportLanguage? result = await Get.dialog(SimpleDialog(title: Text(S.of(context).theme_setting), children: options));
+                if (result != null) {
+                  LanguageUtils.getInstance().setLanguage(result);
+                }
               }),
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 3, right: 3),
@@ -186,7 +209,8 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                     shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
                   ),
-                  child: const Text("安全退出", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
+                  child: Text(S.of(context).login_out_safely,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
                 ),
               ),
             ),

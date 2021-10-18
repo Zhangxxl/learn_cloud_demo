@@ -9,8 +9,8 @@ import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../my_color.dart';
 import '../router/routes.dart';
+import '../util/ext/string_ext.dart';
 import '../util/global_controller.dart';
-import '../util/string_ext.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -123,13 +123,13 @@ class Login extends StatelessWidget {
   }
 
   Future<void> login() async {
-    EasyLoading.show(status: "正在登录...");
+    EasyLoading.show(status: S.current.login_loading);
     try {
       final LCUser user = await LCUser.login(accController.text, pwdController.text);
       Get.find<GlobalController>().user.value = user;
       Get.offAllNamed(Routes.PAGE_HOME);
-    } on LCException catch (e) {
-      EasyLoading.showError(e.message ?? S.current.login_fail);
+    } on Exception catch (e) {
+      EasyLoading.showError((e is LCException ? e.message : null) ?? S.current.login_fail);
     }
   }
 

@@ -20,6 +20,8 @@ abstract class Constant {
 
   static const SP_KEY_THEME = "sp-key-theme";
   static const SP_KEY_THEME_MODE = "sp-key-theme-mode";
+  static const SP_KEY_LANGUAGE = "sp-key-language";
+  static const SP_KEY_LANGUAGE_NAME = "sp-key-language-name";
 
   static late final REGEX_PWD = RegExp(r"^[\w\d]{6,18}$");
 

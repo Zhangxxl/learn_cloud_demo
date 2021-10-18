@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `please wait...`
+  /// `Please wait...`
   String get waiting {
     return Intl.message(
-      'please wait...',
+      'Please wait...',
       name: 'waiting',
       desc: '',
       args: [],
@@ -289,6 +289,326 @@ class S {
       args: [],
     );
   }
+
+  /// `No more data`
+  String get empty_content {
+    return Intl.message(
+      'No more data',
+      name: 'empty_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear cache only supports mobile platforms`
+  String get clean_cache_warning {
+    return Intl.message(
+      'Clear cache only supports mobile platforms',
+      name: 'clean_cache_warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear cache`
+  String get clean_cache {
+    return Intl.message(
+      'Clear cache',
+      name: 'clean_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm that you wan clean cache?`
+  String get confirm_clean_cache {
+    return Intl.message(
+      'Confirm that you wan clean cache?',
+      name: 'confirm_clean_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clean`
+  String get clean {
+    return Intl.message(
+      'Clean',
+      name: 'clean',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get btn_ok {
+    return Intl.message(
+      'OK',
+      name: 'btn_ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get btn_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'btn_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get info_success {
+    return Intl.message(
+      'Success',
+      name: 'info_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fail`
+  String get info_fail {
+    return Intl.message(
+      'Fail',
+      name: 'info_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password`
+  String get modify_password {
+    return Intl.message(
+      'Change password',
+      name: 'modify_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check for updates`
+  String get check_update {
+    return Intl.message(
+      'Check for updates',
+      name: 'check_update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About us`
+  String get about_us {
+    return Intl.message(
+      'About us',
+      name: 'about_us',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version: {versionName}({versionCode})`
+  String version_message(Object versionName, Object versionCode) {
+    return Intl.message(
+      'Version: $versionName($versionCode)',
+      name: 'version_message',
+      desc: '',
+      args: [versionName, versionCode],
+    );
+  }
+
+  /// `Logging in...`
+  String get login_loading {
+    return Intl.message(
+      'Logging in...',
+      name: 'login_loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New user registration`
+  String get user_register {
+    return Intl.message(
+      'New user registration',
+      name: 'user_register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File system error`
+  String get file_error {
+    return Intl.message(
+      'File system error',
+      name: 'file_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh successfully`
+  String get refresh_complete {
+    return Intl.message(
+      'Refresh successfully',
+      name: 'refresh_complete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last refresh：%T`
+  String get last_refresh_info {
+    return Intl.message(
+      'Last refresh：%T',
+      name: 'last_refresh_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No more`
+  String get no_more {
+    return Intl.message(
+      'No more',
+      name: 'no_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh failed`
+  String get refresh_fail {
+    return Intl.message(
+      'Refresh failed',
+      name: 'refresh_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing`
+  String get refreshing {
+    return Intl.message(
+      'Refreshing',
+      name: 'refreshing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pull down to refresh`
+  String get pull_down_to_refresh {
+    return Intl.message(
+      'Pull down to refresh',
+      name: 'pull_down_to_refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release to refresh`
+  String get release_to_refresh {
+    return Intl.message(
+      'Release to refresh',
+      name: 'release_to_refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading completed`
+  String get load_complete {
+    return Intl.message(
+      'Loading completed',
+      name: 'load_complete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last loaded：%T`
+  String get last_load_info {
+    return Intl.message(
+      'Last loaded：%T',
+      name: 'last_load_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to load`
+  String get load_fail {
+    return Intl.message(
+      'Failed to load',
+      name: 'load_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pull up to loading`
+  String get pull_up_to_load {
+    return Intl.message(
+      'Pull up to loading',
+      name: 'pull_up_to_load',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message(
+      'Loading',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release to load`
+  String get release_to_load {
+    return Intl.message(
+      'Release to load',
+      name: 'release_to_load',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Safely log out`
+  String get login_out_safely {
+    return Intl.message(
+      'Safely log out',
+      name: 'login_out_safely',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change language`
+  String get change_language {
+    return Intl.message(
+      'Change language',
+      name: 'change_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Automatic`
+  String get language_auto {
+    return Intl.message(
+      'Automatic',
+      name: 'language_auto',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -298,6 +618,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'zh'),
+      Locale.fromSubtags(languageCode: 'zh', countryCode: 'TW'),
     ];
   }
 
