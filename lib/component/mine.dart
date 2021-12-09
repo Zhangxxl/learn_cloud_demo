@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -179,8 +178,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
               text: S.of(context).change_language,
               click: () async {
                 final SupportLanguage? selectLanguage = LanguageUtils.getInstance().getLanguage();
-                final supportLocale = await LanguageUtils.getInstance().getSupportLocal()
-                  ..insert(0, LanguageUtils.getAutoLocale(context));
+                final supportLocale = [LanguageUtils.getAutoLocale(context), ...await LanguageUtils.getInstance().getSupportLocal()];
                 final List<SimpleDialogOption> options = supportLocale.map((e) {
                   final Color? color = (selectLanguage != null && selectLanguage.code == e.code) ? context.theme.primaryColor : null;
                   final TextStyle style = TextStyle(inherit: true, color: color);
@@ -217,7 +215,7 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
           ),
         ],
       ),
-    ); /*  */
+    );
   }
 
   @override
