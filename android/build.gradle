@@ -1,11 +1,9 @@
 buildscript {
     ext {
-        kotlin_version = '1.5.21'
+        kotlin_version = '1.5.31'
         appName = '智慧安监'
     }
     repositories {
-//        google()
-//        jcenter()
         //阿里云云效maven(google)
         maven { url 'https://maven.aliyun.com/repository/google' }
         //阿里云云效maven(maven central+jcenter)
@@ -20,12 +18,11 @@ buildscript {
 
 allprojects {
     repositories {
-//        google()
-//        jcenter()
         //阿里云云效maven(google)
         maven { url 'https://maven.aliyun.com/repository/google' }
         //阿里云云效maven(maven central+jcenter)
         maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
     }
 }
 
