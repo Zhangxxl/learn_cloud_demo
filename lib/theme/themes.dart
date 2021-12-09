@@ -19,7 +19,7 @@ abstract class AppTheme {
   static late AppTheme currentTheme = defaultTheme;
 
   static AppTheme loadThemeFromLocal() {
-    final int? localThemeId = sp.getInt(Constant.SP_KEY_THEME);
+    final int? localThemeId = storeage.read(Constant.SP_KEY_THEME);
     if (localThemeId != null) {
       currentTheme = allLightTheme.firstWhere((element) => element.themeId == localThemeId, orElse: () => defaultTheme);
     }
@@ -28,16 +28,16 @@ abstract class AppTheme {
 
   static Future<void> saveThemeToLocal(AppTheme theme) async {
     currentTheme = theme;
-    await sp.setInt(Constant.SP_KEY_THEME, theme.themeId);
+    await storeage.write(Constant.SP_KEY_THEME, theme.themeId);
   }
 
   static ThemeMode loadThemeModeFromLocal() {
-    final mode = sp.getInt(Constant.SP_KEY_THEME_MODE);
+    final mode = storeage.read(Constant.SP_KEY_THEME_MODE);
     return mode == null ? ThemeMode.system : themeModes[mode]!;
   }
 
   static Future<void> saveThemeModeFromLocal(ThemeMode mode) async {
-    await sp.setInt(Constant.SP_KEY_THEME_MODE, themeModes.findFirst((k, v) => v == mode)!.key);
+    await storeage.write(Constant.SP_KEY_THEME_MODE, themeModes.findFirst((k, v) => v == mode)!.key);
   }
 }
 
