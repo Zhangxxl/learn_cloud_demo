@@ -34,14 +34,14 @@ class LanguageUtils {
   }
 
   void setLanguage(SupportLanguage l) {
-    sp.setString(Constant.SP_KEY_LANGUAGE, l.code);
-    sp.setString(Constant.SP_KEY_LANGUAGE_NAME, l.name);
+    storeage.write(Constant.SP_KEY_LANGUAGE, l.code);
+    storeage.write(Constant.SP_KEY_LANGUAGE_NAME, l.name);
     changeLocale(l.locale);
   }
 
   SupportLanguage? getLanguage() {
-    final String? code = sp.getString(Constant.SP_KEY_LANGUAGE);
-    final String? name = sp.getString(Constant.SP_KEY_LANGUAGE_NAME);
+    final String? code = storeage.read(Constant.SP_KEY_LANGUAGE);
+    final String? name = storeage.read(Constant.SP_KEY_LANGUAGE_NAME);
     if (code == null || name == null) {
       return null;
     }

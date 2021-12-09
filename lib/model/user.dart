@@ -4,7 +4,7 @@ import 'package:leancloud_storage/leancloud.dart';
 ///All rights reserved
 ///
 ///[project]  : lean_cloud_test_app
-///[package]  : 
+///[package]  :
 ///[author]   : zhang
 ///[date]     : 2021/8/31 0031
 ///[email]    : zhangxx@yunjiacloud.com
@@ -12,4 +12,6 @@ extension User on LCUser {
   String? get nickname => this['nickname'];
 
   set nickname(String? value) => this['nickname'] = value;
+
+  int get id => this['id'];
 }

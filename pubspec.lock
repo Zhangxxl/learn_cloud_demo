@@ -371,6 +371,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.3.8"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   glob:
     dependency: transitive
     description:
@@ -696,7 +703,7 @@ packages:
     source: hosted
     version: "3.0.1"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
@@ -923,7 +930,7 @@ packages:
       name: vector_math
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   watcher:
     dependency: transitive
     description:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:leancloud_storage/leancloud.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../my_color.dart';
 import '../router/routes.dart';
@@ -17,7 +17,9 @@ import 'global_controller.dart';
 /// [date]     : 2021/6/21 0021
 /// [email]    : zhangxx@yunjiacloud.com
 
-late SharedPreferences sp;
+// late SharedPreferences sp;
+
+late final GetStorage storeage;
 
 var logger = Logger(
   printer: PrefixPrinter(
