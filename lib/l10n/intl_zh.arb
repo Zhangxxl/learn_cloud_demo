@@ -26,6 +26,7 @@
   "mine": "我的",
   "empty_content": "暂时还没有内容哦",
   "clean_cache_warning": "清理缓存仅支持移动平台",
+  "please_wait":"请稍后",
   "clean_cache": "清理缓存",
   "confirm_clean_cache":"确认要清空缓存吗?",
   "clean":"清除",

@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
+import 'package:yicbridge_aj_app/theme/themes.dart';
 
 import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
@@ -108,7 +107,8 @@ class Login extends StatelessWidget {
                       ),
                       clipBehavior: Clip.antiAlias,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(_controller.loginEnable.value ? MyColor.blue : MyColor.gray),
+                        backgroundColor: MaterialStateProperty.all(
+                            _controller.loginEnable.value ? AppTheme.currentTheme.theme.primaryColor : MyColor.gray),
                         shape:
                             MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100)))),
                       ),

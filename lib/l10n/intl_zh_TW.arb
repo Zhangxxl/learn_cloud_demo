@@ -27,6 +27,7 @@
   "empty_content": "暫時還沒有內容哦",
   "clean_cache_warning": "清理緩存僅支持移動平台",
   "clean_cache": "清理緩存",
+  "please_wait":"請稍後",
   "btn_ok": "確定",
   "btn_cancel": "取消",
   "info_success":"成功",

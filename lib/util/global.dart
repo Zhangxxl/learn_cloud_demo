@@ -19,9 +19,9 @@ import 'global_controller.dart';
 
 // late SharedPreferences sp;
 
-late final GetStorage storeage;
+late final GetStorage storeage = GetStorage();
 
-var logger = Logger(
+late final Logger logger = Logger(
   printer: PrefixPrinter(
     PrettyPrinter(
       lineLength: 200,

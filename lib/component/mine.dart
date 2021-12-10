@@ -39,18 +39,14 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
   late final _controller = Get.put(_MineController());
 
   @override
-  void initState() {
-    super.initState();
-    if (GetPlatform.isMobile) {
+  Widget build(BuildContext context) {
+    super.build(context);
+    if (GetPlatform.isMobile && !GetPlatform.isWeb) {
+      _controller.cacheStr.value = S.current.please_wait;
       CacheUtils.getCacheSize().then((value) => _controller.cacheStr.value = value);
     } else {
       _controller.cacheStr.value = S.current.clean_cache_warning;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
     final globalController = Get.find<GlobalController>();
     return ColoredBox(
       color: Theme.of(context).backgroundColor,
@@ -316,5 +312,5 @@ class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
 }
 
 class _MineController extends GetxController {
-  final RxString cacheStr = "请稍后".obs;
+  late final RxString cacheStr = RxString("");
 }

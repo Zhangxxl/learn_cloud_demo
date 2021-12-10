@@ -28,6 +28,7 @@
   "clean_cache_warning": "Clear cache only supports mobile platforms",
   "clean_cache": "Clear cache",
   "confirm_clean_cache":"Confirm that you wan clean cache?",
+  "please_wait":"Please wait",
   "clean":"Clean",
   "btn_ok": "OK",
   "btn_cancel": "Cancel",

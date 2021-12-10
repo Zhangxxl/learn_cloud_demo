@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "modify_password": MessageLookupByLibrary.simpleMessage("修改密码"),
         "no_more": MessageLookupByLibrary.simpleMessage("没有更多了"),
         "notice": MessageLookupByLibrary.simpleMessage("通知"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("请稍后"),
         "pull_down_to_refresh": MessageLookupByLibrary.simpleMessage("下拉刷新"),
         "pull_up_to_load": MessageLookupByLibrary.simpleMessage("上拉加载"),
         "pwdHint": MessageLookupByLibrary.simpleMessage("请输入密码"),

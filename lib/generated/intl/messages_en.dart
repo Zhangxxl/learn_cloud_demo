@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change password"),
         "no_more": MessageLookupByLibrary.simpleMessage("No more"),
         "notice": MessageLookupByLibrary.simpleMessage("notice"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("Please wait"),
         "pull_down_to_refresh":
             MessageLookupByLibrary.simpleMessage("Pull down to refresh"),
         "pull_up_to_load":

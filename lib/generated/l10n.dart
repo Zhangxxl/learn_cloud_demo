@@ -330,6 +330,16 @@ class S {
     );
   }
 
+  /// `Please wait`
+  String get please_wait {
+    return Intl.message(
+      'Please wait',
+      name: 'please_wait',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Clean`
   String get clean {
     return Intl.message(

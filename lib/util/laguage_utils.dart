@@ -26,7 +26,8 @@ class LanguageUtils {
 
   static LanguageUtils? _instance;
 
-  static SupportLanguage getAutoLocale(BuildContext context) => SupportLanguage(code: "und", name: S.of(context).language_auto, locale: Localizations.localeOf(context));
+  static SupportLanguage getAutoLocale(BuildContext context) =>
+      SupportLanguage(code: "und", name: S.of(context).language_auto, locale: Localizations.localeOf(context));
 
   static LanguageUtils getInstance() {
     _instance ??= LanguageUtils._internal();
@@ -61,11 +62,9 @@ class LanguageUtils {
   Future<List<SupportLanguage>> getSupportLocal() async {
     final List<SupportLanguage> support = [];
     for (final element in S.delegate.supportedLocales) {
-      final language = (await localJson).findFirst((k, v) {
-        logger.i("k: $k, v: $v, element.countryCode: ${element.countryCode}, element.countryCode: ${element.countryCode}");
-        return (element.countryCode == null && k == element.languageCode) ||
-            RegExp("${element.languageCode}$languageSeparator${element.countryCode}").hasMatch(k);
-      });
+      final language = (await localJson).findFirst((k, v) =>
+          (element.countryCode == null && k == element.languageCode) ||
+          RegExp("${element.languageCode}$languageSeparator${element.countryCode}").hasMatch(k));
       if (language != null) {
         support.add(SupportLanguage.parse(code: language.key, name: language.value));
       }
