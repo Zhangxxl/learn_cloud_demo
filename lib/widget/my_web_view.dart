@@ -30,8 +30,7 @@ class MyWebView extends StatefulWidget {
   State<StatefulWidget> createState() => MyWebViewState();
 }
 
-class MyWebViewState extends State<MyWebView> with AutomaticKeepAliveClientMixin {
-  MyWebViewState();
+class MyWebViewState extends State<MyWebView>{
 
   late InAppWebViewController webViewController;
   late PullToRefreshController pullToRefreshController = PullToRefreshController(
@@ -44,19 +43,8 @@ class MyWebViewState extends State<MyWebView> with AutomaticKeepAliveClientMixin
       }
     },
   );
-
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return InAppWebView(
+  Widget build(BuildContext context) => InAppWebView(
         pullToRefreshController: pullToRefreshController,
         initialUrlRequest: URLRequest(url: Uri.parse(widget.initialUrl)),
         initialUserScripts: UnmodifiableListView<UserScript>([
@@ -169,7 +157,6 @@ class MyWebViewState extends State<MyWebView> with AutomaticKeepAliveClientMixin
             callback: (List<dynamic>? arguments) => {},
           );
         });
-  }
 
   Future<NavigationActionPolicy> shouldOverrideUrlLoading(InAppWebViewController controller, NavigationAction navigationAction) async {
     final url = navigationAction.request.url?.toString();

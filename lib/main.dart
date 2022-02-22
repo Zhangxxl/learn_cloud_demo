@@ -5,9 +5,9 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:yicbridge_aj_app/constant.dart';
 
 import 'app.dart';
+import 'constant.dart';
 
 Future<void> main() async {
   await GetStorage.init();
@@ -16,8 +16,9 @@ Future<void> main() async {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
   if (GetPlatform.isAndroid && !GetPlatform.isWeb) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark));
   }
   LeanCloud.initialize(Constant.LEAN_APP_ID, Constant.LEAN_APP_KEY, queryCache: LCQueryCache());
   runApp(MyApp());

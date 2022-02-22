@@ -6,6 +6,7 @@ import '../component/notice.dart';
 import '../component/web_frame.dart';
 import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
+import '../util/global.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -51,6 +52,7 @@ class Home extends StatelessWidget {
       );
 
   Future<void> _onItemTapped(int value) async {
+    logger.i('_onItemTapped: $value');
     await _pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     final _titles = [S.current.notice, S.current.work_station, S.current.mine];
     controller.title.value = _titles[value];

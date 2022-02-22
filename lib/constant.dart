@@ -13,10 +13,7 @@ abstract class Constant {
   Constant._();
 
   static const BASE_URL = "http://192.168.108.212:50081/";
-  // static const BASE_URL = "http://xhzjj.yunjiacloud.com:30081/";
-  // static const BASE_PAGE_URL = "http://192.168.98.132/D%3A/HttpServer/test.html";
-  static const BASE_PAGE_URL = "http://192.168.108.212:50081/#";
-  // static const BASE_PAGE_URL = "http://xhzjj.yunjiacloud.com:30081/#";
+  static const BASE_PAGE_URL = "https://www.baidu.com";
 
   static const SP_KEY_THEME = "sp-key-theme";
   static const SP_KEY_THEME_MODE = "sp-key-theme-mode";
