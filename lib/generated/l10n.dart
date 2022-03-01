@@ -260,11 +260,21 @@ class S {
     );
   }
 
-  /// `notice`
-  String get notice {
+  /// `message`
+  String get message {
     return Intl.message(
-      'notice',
-      name: 'notice',
+      'message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `moments posts`
+  String get moments_posts {
+    return Intl.message(
+      'moments posts',
+      name: 'moments_posts',
       desc: '',
       args: [],
     );
@@ -615,6 +625,36 @@ class S {
     return Intl.message(
       'Automatic',
       name: 'language_auto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post content`
+  String get post_content {
+    return Intl.message(
+      'Post content',
+      name: 'post_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter content`
+  String get please_enter_content {
+    return Intl.message(
+      'Please enter content',
+      name: 'please_enter_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `post`
+  String get post {
+    return Intl.message(
+      'post',
+      name: 'post',
       desc: '',
       args: [],
     );

@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:yicbridge_aj_app/page/send_posts.dart';
 
 import '../page/about_me.dart';
 import '../page/home.dart';
@@ -27,6 +28,7 @@ abstract class Routes {
     GetPage(name: PAGE_REGISTER, page: () => Register()),
     GetPage(name: PAGE_WEB, page: () => WebPage()),
     GetPage(name: PAGE_ABOUT_ME, page: () => AboutMe()),
+    GetPage(name: PAGE_SEND_POST, page: () => SendPosts()),
   ];
 
   static const PAGE_SPLASH = "/splash";
@@ -35,4 +37,5 @@ abstract class Routes {
   static const PAGE_HOME = "/home";
   static const PAGE_WEB = "/web";
   static const PAGE_ABOUT_ME = "/about_me";
+  static const PAGE_SEND_POST = "/post/send";
 }

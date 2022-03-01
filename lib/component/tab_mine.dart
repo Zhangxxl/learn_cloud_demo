@@ -28,14 +28,14 @@ import '../util/laguage_utils.dart';
 /// [author]   : zhang
 /// [date]     : 2021/6/23 0023
 /// [email]    : zhangxx@yunjiacloud.com
-class Mine extends StatefulWidget {
-  const Mine({Key? key}) : super(key: key);
+class TabMine extends StatefulWidget {
+  const TabMine({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MineState();
+  State<StatefulWidget> createState() => _TabMineState();
 }
 
-class _MineState extends State<Mine> with AutomaticKeepAliveClientMixin {
+class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
   late final _controller = Get.put(_MineController());
 
   @override

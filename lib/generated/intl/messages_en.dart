@@ -60,12 +60,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_loading": MessageLookupByLibrary.simpleMessage("Logging in..."),
         "login_out_safely":
             MessageLookupByLibrary.simpleMessage("Safely log out"),
+        "message": MessageLookupByLibrary.simpleMessage("message"),
         "mine": MessageLookupByLibrary.simpleMessage("mine"),
         "modify_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "moments_posts": MessageLookupByLibrary.simpleMessage("moments posts"),
         "no_more": MessageLookupByLibrary.simpleMessage("No more"),
-        "notice": MessageLookupByLibrary.simpleMessage("notice"),
+        "please_enter_content":
+            MessageLookupByLibrary.simpleMessage("Please enter content"),
         "please_wait": MessageLookupByLibrary.simpleMessage("Please wait"),
+        "post": MessageLookupByLibrary.simpleMessage("post"),
+        "post_content": MessageLookupByLibrary.simpleMessage("Post content"),
         "pull_down_to_refresh":
             MessageLookupByLibrary.simpleMessage("Pull down to refresh"),
         "pull_up_to_load":

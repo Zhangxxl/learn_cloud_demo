@@ -10,14 +10,13 @@ import 'package:get/get.dart';
 /// [author]   : zhang
 /// [date]     : 2021/6/23 0023
 /// [email]    : zhangxx@yunjiacloud.com
-class Notice extends StatefulWidget {
-  const Notice({Key? key}) : super(key: key);
-
+class TabMessage extends StatefulWidget {
+  const TabMessage({Key? key}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => _NoticeState();
+  State<StatefulWidget> createState() => _TabMessageState();
 }
 
-class _NoticeState extends State<Notice> with AutomaticKeepAliveClientMixin {
+class _TabMessageState extends State<TabMessage> with AutomaticKeepAliveClientMixin {
   late final _NoticeController _controller = _NoticeController();
 
   @override

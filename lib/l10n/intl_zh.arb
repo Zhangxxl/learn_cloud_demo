@@ -21,7 +21,8 @@
   "theme_purple": "紫色",
   "theme_red": "红色",
   "theme_dark": "Dark",
-  "notice": "通知",
+  "message": "通知",
+  "moments_posts": "朋友圈",
   "work_station": "工作台",
   "mine": "我的",
   "empty_content": "暂时还没有内容哦",
@@ -56,5 +57,8 @@
   "release_to_load": "松开加载",
   "login_out_safely": "安全退出",
   "change_language": "切换语言",
-  "language_auto": "自动"
+  "language_auto": "自动",
+  "post_content": "发布内容",
+  "please_enter_content": "请输入内容",
+  "post": "发布"
 }

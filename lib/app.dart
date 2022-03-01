@@ -21,7 +21,6 @@ import 'util/laguage_utils.dart';
 /// [email]    : zhangxx@yunjiacloud.com
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final controller = Get.put(GlobalController());
 
   @override
   Widget build(BuildContext context) => GetMaterialApp(
@@ -49,6 +48,7 @@ class MyApp extends StatelessWidget {
   void init(BuildContext context) {
     _configRefresh(context);
     _configLoading(context);
+    Get.put(GlobalController());
   }
 
   void routingCallback(Routing? value) {

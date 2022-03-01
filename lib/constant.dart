@@ -12,7 +12,7 @@
 abstract class Constant {
   Constant._();
 
-  static const BASE_URL = "http://192.168.108.212:50081/";
+  static const BASE_URL = "http://192.168.108.212:50081";
   static const BASE_PAGE_URL = "https://www.baidu.com";
 
   static const SP_KEY_THEME = "sp-key-theme";

@@ -21,7 +21,8 @@
   "theme_purple": "紫色",
   "theme_red": "紅色",
   "theme_dark": "Dark",
-  "notice": "通知",
+  "message": "通知",
+  "moments_posts": "朋友圈",
   "work_station": "工作台",
   "mine": "我的",
   "empty_content": "暫時還沒有內容哦",
@@ -56,5 +57,8 @@
   "release_to_load": "鬆開加載",
   "login_out_safely": "安全退出",
   "change_language":"切換語言",
-  "language_auto": "自動"
+  "language_auto": "自動",
+  "post_content": "發佈内容",
+  "please_enter_content": "請輸入文字",
+  "post": "發佈"
 }

@@ -46,14 +46,9 @@ class Splash extends StatelessWidget {
   }
 
   Future<void> work(DateTime dateTime) async {
-    String route;
     final globalController = Get.find<GlobalController>();
     globalController.user.value = await LCUser.getCurrent();
-    if (globalController.user.value != null) {
-      route = Routes.PAGE_HOME;
-    } else {
-      route = Routes.PAGE_LOGIN;
-    }
+    final String route = globalController.user.value != null ? Routes.PAGE_HOME : Routes.PAGE_LOGIN;
     final time = DateTime.now().millisecond - dateTime.millisecond;
     if (time > WAIT_TIME) {
       nextToPage(route);

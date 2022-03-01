@@ -21,7 +21,8 @@
   "theme_purple": "Purple",
   "theme_red": "Red",
   "theme_dark": "Dark",
-  "notice": "notice",
+  "message": "message",
+  "moments_posts": "moments posts",
   "work_station": "workstation",
   "mine": "mine",
   "empty_content": "No more data",
@@ -56,5 +57,8 @@
   "release_to_load": "Release to load",
   "login_out_safely": "Safely log out",
   "change_language":"Change language",
-  "language_auto": "Automatic"
+  "language_auto": "Automatic",
+  "post_content": "Post content",
+  "please_enter_content": "Please enter content",
+  "post": "post"
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:leancloud_official_plugin/leancloud_plugin.dart';
 import 'package:leancloud_storage/leancloud.dart';
 
 /// Copyright © 2021 yunjia Ltd.
@@ -11,4 +12,5 @@ import 'package:leancloud_storage/leancloud.dart';
 /// [email]    : zhangxx@yunjiacloud.com
 class GlobalController extends GetxController {
   final Rx<LCUser?> user = Rx(null);
+  final Rx<Client?> client = Rx(null);
 }
