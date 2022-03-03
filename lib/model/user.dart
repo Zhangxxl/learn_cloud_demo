@@ -14,4 +14,8 @@ extension User on LCUser {
   set nickname(String? value) => this['nickname'] = value;
 
   int get id => this['id'];
+
+  LCFile? get avatar => this['avatar'];
+
+  set avatar(LCFile? value) => this['avatar'] = value;
 }

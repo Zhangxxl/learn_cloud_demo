@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:yicbridge_aj_app/model/moments_posts.dart';
 
 import '../generated/l10n.dart';
 import '../model/data_object.dart';
+import '../model/moments_posts.dart';
 import '../router/routes.dart';
+import '../util/global.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -34,15 +35,24 @@ class _TabMomentsPostsState extends State<TabMomentsPosts>
   }
 
   Future<void> loadPosts([MomentsPosts? anchor]) async {
-    final List<MomentsPosts>? posts =
-        await LCQuery<MomentsPosts>(MomentsPosts.COLUMN_CLASS_NAME)
-            .whereLessThan(DataObject.COLUMN_CREATED_AT,
-                anchor?.createdAt ?? DateTime.now())
-            .orderByDescending(DataObject.COLUMN_CREATED_AT)
-            .limit(20)
-            .find();
+    final query = LCQuery<MomentsPosts>(MomentsPosts.COLUMN_CLASS_NAME);
+    if (anchor != null) {
+      query.whereLessThan(DataObject.COLUMN_CREATED_AT, anchor.createdAt);
+    }
+    query
+        .include(MomentsPosts.COLUMN_IMAGES)
+        .include(MomentsPosts.COLUMN_COMMENTS)
+        .orderByDescending(DataObject.COLUMN_CREATED_AT)
+        .limit(20);
+    List<MomentsPosts>? posts;
+    try {
+      posts = await query.find();
+    } catch (e) {
+      print(e);
+    }
     if (posts != null) {
-      if(anchor == null) {
+      logger.i('loadPosts: $posts');
+      if (anchor == null) {
         _controller.posts.clear();
       }
       _controller.posts.addAll(posts);
@@ -73,13 +83,38 @@ class _TabMomentsPostsState extends State<TabMomentsPosts>
         },
         child: Obx(() => ListView.builder(
               itemCount: _controller.posts.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(_controller.posts[index].content),
-              ),
+              itemBuilder: (context, index) =>
+                  buildItem(_controller.posts[index]),
             )),
       ),
     );
   }
+
+  Widget buildItem(MomentsPosts post) => ListTile(
+        title: Text(post.content),
+        subtitle: Wrap(
+          children: post.imgs
+              .map((e) => buildAvatar(post, post.imgs.indexOf(e)))
+              .toList(),
+        ),
+      );
+
+  Widget buildAvatar(MomentsPosts post, int index) => GestureDetector(
+        onTap: () async {
+          Get.toNamed(Routes.PAGE_PHOTO, arguments: {
+            'photos': post.imgs.map((e) => e.url!).toList(),
+            'index': index,
+          });
+        },
+        child: Hero(
+          tag: post.imgs[index].url ?? post.imgs[index].toString(),
+          child: SizedBox(
+            width: 100,
+            height: 100,
+            child: Image.network(post.imgs[index].url ?? "", fit: BoxFit.cover),
+          ),
+        ),
+      );
 
   @override
   bool get wantKeepAlive => true;

@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:install_plugin/install_plugin.dart';
+import 'package:leancloud_storage/leancloud.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -37,187 +38,225 @@ class TabMine extends StatefulWidget {
 
 class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
   late final _controller = Get.put(_MineController());
+  late final ImagePicker _picker = ImagePicker();
+  late final globalController = Get.find<GlobalController>();
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     if (GetPlatform.isMobile && !GetPlatform.isWeb) {
       _controller.cacheStr.value = S.current.please_wait;
-      CacheUtils.getCacheSize().then((value) => _controller.cacheStr.value = value);
+      CacheUtils.getCacheSize()
+          .then((value) => _controller.cacheStr.value = value);
     } else {
       _controller.cacheStr.value = S.current.clean_cache_warning;
     }
-    final globalController = Get.find<GlobalController>();
-    return ColoredBox(
-      color: Theme.of(context).backgroundColor,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 30),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Obx(() => getHead(globalController.user.value?.realName ?? "", margin: const EdgeInsets.only(right: 20))),
-                Flexible(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(() => Text(globalController.user.value?.nickname ?? "",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500))),
-                      const SizedBox(height: 10),
-                      Obx(() => Text(globalController.user.value?.mobile ?? ""))
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 10, width: double.infinity),
-          buildItem(iconAsset: Assets.resources.image.icModifyPwd, text: S.of(context).modify_password, click: modifyPassword),
-          Obx(() => buildItem(
-              iconAsset: Assets.resources.image.icCleanCache,
-              text: S.of(context).clean_cache,
-              info: _controller.cacheStr.value,
-              click: () {
-                if (GetPlatform.isWeb || !GetPlatform.isMobile) {
-                  EasyLoading.showToast(S.of(context).clean_cache_warning);
-                  return;
-                }
-                Get.dialog(AlertDialog(
-                  title: Text(S.of(context).clean_cache),
-                  content: Text(S.of(context).confirm_clean_cache),
-                  actions: [
-                    TextButton(
-                        child: Text(S.of(context).btn_ok),
-                        onPressed: () {
-                          Get.back();
-                        }),
-                    TextButton(
-                        child: Text(S.of(context).btn_cancel),
-                        onPressed: () async {
-                          final bool result = await CacheUtils.clearCache();
-                          _controller.cacheStr.value = "0.00B";
-                          Get.back();
-                          EasyLoading.showToast(S.of(context).clean + (result ? S.of(context).info_success : S.of(context).info_fail));
-                        }),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Obx(() => buildHead(context, globalController.user.value)),
+              const SizedBox(width: 12),
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Obx(() => Text(globalController.user.value?.nickname ?? "",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500))),
+                    const SizedBox(height: 10),
+                    Obx(() => Text(globalController.user.value?.mobile ?? ""))
                   ],
-                ));
-              })),
-          if (GetPlatform.isAndroid)
-            buildItem(
-              iconAsset: Assets.resources.image.icCheckUpdate,
-              text: S.of(context).check_update,
-              click: () => checkAppUpdate(),
-            ),
-          buildItem(
-            iconAsset: Assets.resources.image.icAboutMe,
-            text: S.of(context).about_us,
-            click: () => Get.toNamed(Routes.PAGE_ABOUT_ME),
+                ),
+              )
+            ],
           ),
+        ),
+        const SizedBox(height: 10, width: double.infinity),
+        buildItem(
+            iconAsset: Assets.resources.image.icModifyPwd,
+            text: S.of(context).modify_password,
+            click: modifyPassword),
+        Obx(() => buildItem(
+            iconAsset: Assets.resources.image.icCleanCache,
+            text: S.of(context).clean_cache,
+            info: _controller.cacheStr.value,
+            click: () {
+              if (GetPlatform.isWeb || !GetPlatform.isMobile) {
+                EasyLoading.showToast(S.of(context).clean_cache_warning);
+                return;
+              }
+              Get.dialog(AlertDialog(
+                title: Text(S.of(context).clean_cache),
+                content: Text(S.of(context).confirm_clean_cache),
+                actions: [
+                  TextButton(
+                      child: Text(S.of(context).btn_ok),
+                      onPressed: () {
+                        Get.back();
+                      }),
+                  TextButton(
+                      child: Text(S.of(context).btn_cancel),
+                      onPressed: () async {
+                        final bool result = await CacheUtils.clearCache();
+                        _controller.cacheStr.value = "0.00B";
+                        Get.back();
+                        EasyLoading.showToast(S.of(context).clean +
+                            (result
+                                ? S.of(context).info_success
+                                : S.of(context).info_fail));
+                      }),
+                ],
+              ));
+            })),
+        if (GetPlatform.isAndroid)
           buildItem(
-              iconAsset: Assets.resources.image.icAboutMe,
-              text: S.of(context).theme_setting,
-              click: () {
-                if (Get.isDarkMode) {
-                  EasyLoading.showToast("---");
-                  return;
-                }
-                Get.dialog(
-                  SimpleDialog(
+            iconAsset: Assets.resources.image.icCheckUpdate,
+            text: S.of(context).check_update,
+            click: () => checkAppUpdate(),
+          ),
+        buildItem(
+          iconAsset: Assets.resources.image.icAboutMe,
+          text: S.of(context).about_us,
+          click: () => Get.toNamed(Routes.PAGE_ABOUT_ME),
+        ),
+        buildItem(
+            iconAsset: Assets.resources.image.icAboutMe,
+            text: S.of(context).theme_setting,
+            click: () {
+              if (Get.isDarkMode) {
+                EasyLoading.showToast("---");
+                return;
+              }
+              Get.dialog(
+                SimpleDialog(
+                  title: Text(S.of(context).theme_setting),
+                  children: AppTheme.allLightTheme
+                      .map((e) => SimpleDialogOption(
+                          child: Container(
+                              color: e.theme.primaryColor,
+                              width: 30,
+                              height: 30),
+                          onPressed: () {
+                            Get.changeTheme(e.theme);
+                            AppTheme.saveThemeToLocal(e);
+                            Get.back();
+                          }))
+                      .toList(),
+                ),
+              );
+            }),
+        buildItem(
+            iconAsset: Assets.resources.image.icAboutMe,
+            text: S.of(context).theme_mode_setting,
+            click: () async {
+              final ThemeMode? result = await Get.dialog(
+                SimpleDialog(
                     title: Text(S.of(context).theme_setting),
-                    children: AppTheme.allLightTheme
-                        .map((e) => SimpleDialogOption(
-                            child: Container(color: e.theme.primaryColor, width: 30, height: 30),
-                            onPressed: () {
-                              Get.changeTheme(e.theme);
-                              AppTheme.saveThemeToLocal(e);
-                              Get.back();
-                            }))
-                        .toList(),
-                  ),
-                );
-              }),
-          buildItem(
-              iconAsset: Assets.resources.image.icAboutMe,
-              text: S.of(context).theme_mode_setting,
-              click: () async {
-                final ThemeMode? result = await Get.dialog(
-                  SimpleDialog(title: Text(S.of(context).theme_setting), children: [
-                    SimpleDialogOption(
-                        child: Text(S.of(context).theme_mode_default, style: Get.theme.textTheme.button),
-                        onPressed: () async {
-                          await AppTheme.saveThemeModeFromLocal(ThemeMode.system);
-                          Get.back(result: ThemeMode.system);
-                        }),
-                    SimpleDialogOption(
-                        child: Text(S.of(context).theme_mode_dark, style: Get.theme.textTheme.button),
-                        onPressed: () async {
-                          await AppTheme.saveThemeModeFromLocal(ThemeMode.dark);
-                          Get.back(result: ThemeMode.dark);
-                        }),
-                    SimpleDialogOption(
-                        child: Text(S.of(context).theme_mode_light, style: Get.theme.textTheme.button),
-                        onPressed: () async {
-                          await AppTheme.saveThemeModeFromLocal(ThemeMode.light);
-                          Get.back(result: ThemeMode.light);
-                        })
-                  ]),
-                );
-                if (result != null) {
-                  Get.changeThemeMode(result);
-                }
-                logger.i("result: $result");
-              }),
-          buildItem(
-              iconAsset: Assets.resources.image.icAboutMe,
-              text: S.of(context).change_language,
-              click: () async {
-                final SupportLanguage? selectLanguage = LanguageUtils.getInstance().getLanguage();
-                final supportLocale = [LanguageUtils.getAutoLocale(context), ...await LanguageUtils.getInstance().getSupportLocal()];
-                final List<SimpleDialogOption> options = supportLocale.map((e) {
-                  final Color? color = (selectLanguage != null && selectLanguage.code == e.code) ? context.theme.primaryColor : null;
-                  final TextStyle style = TextStyle(inherit: true, color: color);
-                  return SimpleDialogOption(child: Text(e.name, style: style), onPressed: () => Get.back(result: e));
-                }).toList();
-                final SupportLanguage? result = await Get.dialog(SimpleDialog(title: Text(S.of(context).theme_setting), children: options));
-                if (result != null) {
-                  LanguageUtils.getInstance().setLanguage(result);
-                }
-              }),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 3, right: 3),
-            child: SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: DecoratedBox(
-                decoration: ShapeDecoration(
-                  color: Get.theme.primaryColor,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                    children: [
+                      SimpleDialogOption(
+                          child: Text(S.of(context).theme_mode_default,
+                              style: Get.theme.textTheme.button),
+                          onPressed: () async {
+                            await AppTheme.saveThemeModeFromLocal(
+                                ThemeMode.system);
+                            Get.back(result: ThemeMode.system);
+                          }),
+                      SimpleDialogOption(
+                          child: Text(S.of(context).theme_mode_dark,
+                              style: Get.theme.textTheme.button),
+                          onPressed: () async {
+                            await AppTheme.saveThemeModeFromLocal(
+                                ThemeMode.dark);
+                            Get.back(result: ThemeMode.dark);
+                          }),
+                      SimpleDialogOption(
+                          child: Text(S.of(context).theme_mode_light,
+                              style: Get.theme.textTheme.button),
+                          onPressed: () async {
+                            await AppTheme.saveThemeModeFromLocal(
+                                ThemeMode.light);
+                            Get.back(result: ThemeMode.light);
+                          })
+                    ]),
+              );
+              if (result != null) {
+                Get.changeThemeMode(result);
+              }
+              logger.i("result: $result");
+            }),
+        buildItem(
+            iconAsset: Assets.resources.image.icAboutMe,
+            text: S.of(context).change_language,
+            click: () async {
+              final SupportLanguage? selectLanguage =
+                  LanguageUtils.getInstance().getLanguage();
+              final supportLocale = [
+                LanguageUtils.getAutoLocale(context),
+                ...await LanguageUtils.getInstance().getSupportLocal()
+              ];
+              final List<SimpleDialogOption> options = supportLocale.map((e) {
+                final Color? color =
+                    (selectLanguage != null && selectLanguage.code == e.code)
+                        ? context.theme.primaryColor
+                        : null;
+                final TextStyle style = TextStyle(inherit: true, color: color);
+                return SimpleDialogOption(
+                    child: Text(e.name, style: style),
+                    onPressed: () => Get.back(result: e));
+              }).toList();
+              final SupportLanguage? result = await Get.dialog(SimpleDialog(
+                  title: Text(S.of(context).theme_setting), children: options));
+              if (result != null) {
+                LanguageUtils.getInstance().setLanguage(result);
+              }
+            }),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, left: 3, right: 3),
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: DecoratedBox(
+              decoration: ShapeDecoration(
+                color: Get.theme.primaryColor,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+              ),
+              child: OutlinedButton(
+                onPressed: logout,
+                style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  side: MaterialStateProperty.all(BorderSide.none),
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)))),
                 ),
-                child: OutlinedButton(
-                  onPressed: logout,
-                  style: ButtonStyle(
-                    shadowColor: MaterialStateProperty.all(Colors.transparent),
-                    side: MaterialStateProperty.all(BorderSide.none),
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                    shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
-                  ),
-                  child: Text(S.of(context).login_out_safely,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
-                ),
+                child: Text(S.of(context).login_out_safely,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   @override
   bool get wantKeepAlive => true;
 
-  Widget buildItem({required AssetImage iconAsset, required String text, required VoidCallback click, String? info}) => ColoredBox(
+  Widget buildItem(
+          {required AssetImage iconAsset,
+          required String text,
+          required VoidCallback click,
+          String? info}) =>
+      ColoredBox(
         color: Get.theme.dialogBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 4),
@@ -227,7 +266,8 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
               shadowColor: MaterialStateProperty.all(Colors.transparent),
               side: MaterialStateProperty.all(BorderSide.none),
               padding: MaterialStateProperty.all(EdgeInsets.zero),
-              shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
+              shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)))),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -238,8 +278,10 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
                   const SizedBox(width: 12),
                   Text(text, style: Get.theme.textTheme.subtitle1),
                   const Spacer(),
-                  if (info != null) Text(info, style: Get.theme.textTheme.bodyText1),
-                  Icon(Icons.arrow_forward_ios, size: 18, color: Get.theme.textTheme.bodyText1?.color)
+                  if (info != null)
+                    Text(info, style: Get.theme.textTheme.bodyText1),
+                  Icon(Icons.arrow_forward_ios,
+                      size: 18, color: Get.theme.textTheme.bodyText1?.color)
                 ],
               ),
             ),
@@ -282,7 +324,9 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
         file.deleteSync();
       }
       file.createSync();
-      final resp = await HttpApi.down("http://121.40.29.236/home/yicbridge/app/app-product-ha-release.apk", file, (count, total) {
+      final resp = await HttpApi.down(
+          "http://121.40.29.236/home/yicbridge/app/app-product-ha-release.apk",
+          file, (count, total) {
         EasyLoading.showProgress(count / total, status: "正在下载...");
       });
       EasyLoading.dismiss();
@@ -308,6 +352,45 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
     final String applicationId = info.packageName;
     final result = await InstallPlugin.installApk(_apkFilePath, applicationId);
     logger.i("install result: $result");
+  }
+
+  Widget buildHead(BuildContext context, LCUser? user) {
+    return GestureDetector(
+      onTap: selectImg,
+      child: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(color: Get.theme.primaryColor, width: 2),
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
+          ),
+          padding: const EdgeInsets.all(2),
+          child: ClipOval(
+            child: user?.avatar?.url == null
+                ? Icon(Icons.man, size: 72, color: Get.theme.primaryColor)
+                : Image.network(user!.avatar!.url!, fit: BoxFit.cover),
+          )),
+    );
+  }
+
+  Future<void> selectImg() async {
+    final lcUser = globalController.user.value;
+    if (lcUser == null) {
+      return;
+    }
+    // Pick an image
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      EasyLoading.show(status: S.current.loading);
+      if (lcUser.avatar != null) {
+        await lcUser.avatar!.delete();
+      }
+      lcUser.avatar = await LCFile.fromPath(image.name, image.path);
+      await lcUser.save();
+      globalController.user.refresh();
+      EasyLoading.showSuccess(S.current.info_success);
+    }
   }
 }
 

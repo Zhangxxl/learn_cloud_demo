@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leancloud_storage/leancloud.dart';
@@ -8,6 +9,7 @@ import 'package:leancloud_storage/leancloud.dart';
 import '../generated/l10n.dart';
 import '../model/moments_posts.dart';
 import '../theme/themes.dart';
+import '../util/global.dart';
 
 ///Copyright © 2022 yunjia Ltd.
 ///All rights reserved
@@ -67,6 +69,7 @@ class SendPosts extends StatelessWidget {
                     runSpacing: 8.0,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     alignment: WrapAlignment.spaceBetween,
+                    runAlignment: WrapAlignment.spaceBetween,
                     children: [
                       ...makeSelectImg(),
                       if (_controller.showAdd.value)
@@ -87,19 +90,21 @@ class SendPosts extends StatelessWidget {
 
   Future<void> sendPost(BuildContext context) async {
     if (_textController.text.isEmpty) {
-      Get.snackbar(
-          S.of(context).post_content, S.of(context).please_enter_content);
+      EasyLoading.showInfo(S.of(context).please_enter_content);
       return;
     }
+    EasyLoading.show(status: S.current.loading);
     final momentsPosts = MomentsPosts.empty();
     momentsPosts.content = _textController.text;
+    momentsPosts.createUser = await LCUser.getCurrent();
     if (_controller.selectImg.isNotEmpty) {
-      _controller.selectImg
-          .map((element) async => LCFile.fromPath(element.name, element.path))
-          .map((element) async => (await element).save())
-          .forEach((element) async => momentsPosts.imgs.add(await element));
+      final map = _controller.selectImg
+          .map((element) async => LCFile.fromPath(element.name, element.path));
+      momentsPosts.imgs = await Future.wait(map);
     }
+    logger.i(momentsPosts);
     await momentsPosts.save();
+    EasyLoading.showSuccess(S.of(context).info_success);
     Get.back(result: momentsPosts);
   }
 

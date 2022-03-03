@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:yicbridge_aj_app/model/moments_posts.dart';
 
 import 'app.dart';
 import 'constant.dart';
+import 'model/moments_posts.dart';
 
 Future<void> main() async {
   await GetStorage.init();
@@ -22,7 +22,7 @@ Future<void> main() async {
   LeanCloud.initialize(Constant.LEAN_APP_ID, Constant.LEAN_APP_KEY,
       /*server: "https://app.zhangxx.cf", */ queryCache: LCQueryCache());
   LCLogger.setLevel(kReleaseMode ? LCLogger.OffLevel : LCLogger.DebugLevel);
-  LCObject.registerSubclass<MomentsPosts>(
-      MomentsPosts.COLUMN_CLASS_NAME, MomentsPosts.empty);
+  LCObject.registerSubclass<MomentsPosts>(MomentsPosts.COLUMN_CLASS_NAME, MomentsPosts.empty);
+  LCObject.registerSubclass<MomentsPostsComment>(MomentsPosts.COLUMN_CLASS_NAME, MomentsPostsComment.empty);
   runApp(MyApp());
 }

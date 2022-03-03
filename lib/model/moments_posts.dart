@@ -16,8 +16,9 @@ class MomentsPosts extends DataObject {
   static const COLUMN_CLASS_NAME = "moments_posts";
   static const COLUMN_ID = "id";
   static const COLUMN_CONTENT = "content";
-  static const COLUMN_CREATE_USER_ID = "createUserId";
+  static const COLUMN_CREATE_USER = "createUser";
   static const COLUMN_IMAGES = "imgs";
+  static const COLUMN_COMMENTS = "comments";
 
   int get id => this[COLUMN_ID];
 
@@ -25,12 +26,41 @@ class MomentsPosts extends DataObject {
 
   set content(String? value) => this[COLUMN_CONTENT] = value;
 
-  String get createUserId => this[COLUMN_CREATE_USER_ID];
+  LCUser? get createUser => this[COLUMN_CREATE_USER];
 
-  set createUserId(String? value) => this[COLUMN_CREATE_USER_ID] = value;
+  set createUser(LCUser? value) => this[COLUMN_CREATE_USER] = value;
 
-  List<LCFile> get imgs =>
-      this[COLUMN_IMAGES] ?? initValue(COLUMN_IMAGES, <LCFile>[]);
+  List<LCFile> get imgs => (this[COLUMN_IMAGES] as List).cast<LCFile>();
 
   set imgs(List<LCFile> value) => this[COLUMN_IMAGES] = value;
+
+  List<MomentsPostsComment> get comments =>
+      (this[COLUMN_COMMENTS] as List).cast<MomentsPostsComment>();
+
+  set comments(List<MomentsPostsComment> value) =>
+      this[COLUMN_COMMENTS] = value;
+}
+
+class MomentsPostsComment extends DataObject {
+  MomentsPostsComment.empty() : super(COLUMN_CLASS_NAME);
+
+  static const COLUMN_CLASS_NAME = "moments_posts_comment";
+  static const COLUMN_ID = "id";
+  static const COLUMN_CONTENT = "content";
+  static const COLUMN_FROM_USER = "fromUser";
+  static const COLUMN_TO_USER = "toUser";
+
+  int get id => this[COLUMN_ID];
+
+  String get content => this[COLUMN_CONTENT];
+
+  set content(String? value) => this[COLUMN_CONTENT] = value;
+
+  LCUser? get fromUser => this[COLUMN_FROM_USER];
+
+  set fromUser(LCUser? value) => this[COLUMN_FROM_USER] = value;
+
+  LCUser? get toUser => this[COLUMN_TO_USER];
+
+  set toUser(LCUser? value) => this[COLUMN_TO_USER] = value;
 }
