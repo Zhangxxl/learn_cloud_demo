@@ -20,7 +20,7 @@ import 'util/laguage_utils.dart';
 /// [date]     : 2021/6/21 0021
 /// [email]    : zhangxx@yunjiacloud.com
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GetMaterialApp(

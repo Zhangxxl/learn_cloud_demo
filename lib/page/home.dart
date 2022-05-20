@@ -78,8 +78,8 @@ class Home extends StatelessWidget {
             onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotication), label: S.current.message),
-              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotication), label: S.current.moments_posts),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotice), label: S.current.message),
+              BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icNotice), label: S.current.moments_posts),
               BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icWork), label: S.current.work_station),
               BottomNavigationBarItem(icon: ImageIcon(Assets.resources.image.icMine), label: S.current.mine),
             ],

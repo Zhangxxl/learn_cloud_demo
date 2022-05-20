@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 
 /// Copyright © 2021 yunjia Ltd.
 /// All rights reserved
@@ -17,7 +16,6 @@ class TabMessage extends StatefulWidget {
 }
 
 class _TabMessageState extends State<TabMessage> with AutomaticKeepAliveClientMixin {
-  late final _NoticeController _controller = _NoticeController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +32,4 @@ class _TabMessageState extends State<TabMessage> with AutomaticKeepAliveClientMi
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _NoticeController extends GetxController {
-  final tabIndex = 0.obs;
 }

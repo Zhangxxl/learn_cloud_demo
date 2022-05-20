@@ -16,12 +16,7 @@ class MyApplication : FlutterApplication() {
         LeanCloud.setLogLevel(LCLogger.Level.DEBUG)
         // 提供 this、App ID、App Key、Server Host 作为参数
         // 请将 xxx.example.com 替换为你的应用绑定的 API 域名
-        LeanCloud.initialize(
-            this,
-            "V2rjnSVoPoLIIiGskzsl73sC-gzGzoHsz",
-            "n7kIP1iWSzW4EGeSo7NfMmPn",
-            "https://please-replace-with-your-customized.domain.com"
-        )
-        LCInstallation.getCurrentInstallation().saveInBackground();
+        LeanCloud.initialize(this, "V2rjnSVoPoLIIiGskzsl73sC-gzGzoHsz", "n7kIP1iWSzW4EGeSo7NfMmPn", "https://app.zhangxx.cf/")
+        LCInstallation.getCurrentInstallation().saveInBackground()
     }
 }

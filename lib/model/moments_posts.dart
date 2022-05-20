@@ -26,9 +26,9 @@ class MomentsPosts extends DataObject {
 
   set content(String? value) => this[COLUMN_CONTENT] = value;
 
-  LCUser? get createUser => this[COLUMN_CREATE_USER];
+  LCUser get createUser => this[COLUMN_CREATE_USER];
 
-  set createUser(LCUser? value) => this[COLUMN_CREATE_USER] = value;
+  set createUser(LCUser value) => this[COLUMN_CREATE_USER] = value;
 
   List<LCFile> get imgs => (this[COLUMN_IMAGES] as List).cast<LCFile>();
 

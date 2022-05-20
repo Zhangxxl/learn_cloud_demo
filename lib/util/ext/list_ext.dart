@@ -9,9 +9,9 @@
 extension ListExt<E> on List<E>? {
   bool isBlank() => this == null || this!.isEmpty;
 
-  bool isNotBlank() => !isBlank();
+  bool isNotBlank() => this != null && this!.isNotEmpty;
 
-  E? findFirst(bool Function(E e) condition) {
+  E? findFirstOrNull(bool Function(E e) condition) {
     if (this == null) {
       return null;
     }
@@ -32,6 +32,28 @@ extension ListExt<E> on List<E>? {
       if (condition(element)) {
         result.add(element);
       }
+    }
+    return result;
+  }
+
+  List<T> mapWithPosition<T>(T Function(int position, E item) f) {
+    final List<T> result = [];
+    if (this == null) {
+      return result;
+    }
+    for (int index = 0; index < this!.length; index++) {
+      result.add(f(index, this![index]));
+    }
+    return result;
+  }
+
+  List<T> map<T>(T Function(E item) f) {
+    final List<T> result = [];
+    if (this == null) {
+      return result;
+    }
+    for (final E item in this!) {
+      result.add(f(item));
     }
     return result;
   }

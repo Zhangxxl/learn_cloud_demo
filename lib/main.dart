@@ -24,5 +24,5 @@ Future<void> main() async {
   LCLogger.setLevel(kReleaseMode ? LCLogger.OffLevel : LCLogger.DebugLevel);
   LCObject.registerSubclass<MomentsPosts>(MomentsPosts.COLUMN_CLASS_NAME, MomentsPosts.empty);
   LCObject.registerSubclass<MomentsPostsComment>(MomentsPosts.COLUMN_CLASS_NAME, MomentsPostsComment.empty);
-  runApp(MyApp());
+  runApp(const MyApp());
 }

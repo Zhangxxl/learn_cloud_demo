@@ -38,8 +38,8 @@ class $ResourcesImageGen {
   /// File path: resources/image/ic_modify_pwd.webp
   AssetGenImage get icModifyPwd => const AssetGenImage('resources/image/ic_modify_pwd.webp');
 
-  /// File path: resources/image/ic_notication.webp
-  AssetGenImage get icNotication => const AssetGenImage('resources/image/ic_notication.webp');
+  /// File path: resources/image/ic_notice.webp
+  AssetGenImage get icNotice => const AssetGenImage('resources/image/ic_notice.webp');
 
   /// File path: resources/image/ic_splash.webp
   AssetGenImage get icSplash => const AssetGenImage('resources/image/ic_splash.webp');

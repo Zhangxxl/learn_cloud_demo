@@ -1,7 +1,8 @@
-import 'dart:io';
-
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../widget/getx_widget.dart';
 
 ///Copyright © 2022 yunjia Ltd.
 ///All rights reserved
@@ -11,41 +12,43 @@ import 'package:get/get.dart';
 ///[author]   : zhang
 ///[date]     : 2022/3/2 0002
 ///[email]    : zhangxx@yunjiacloud.com
-class PhotoPage extends StatelessWidget {
-  PhotoPage({Key? key}) : super(key: key);
+class PhotoPage extends GetxWidget<PhotoPageController> {
+  PhotoPage({Key? key}) : super(PhotoPageController(), key: key);
 
   late final Map<String, dynamic> arguments = Get.arguments;
   late final List<String> photos = arguments["photos"];
   late final int index = arguments["index"];
 
-  late final PhotoPageController _controller =
-      PhotoPageController(photos[index].obs);
-
   @override
-  Widget build(BuildContext context) => ColoredBox(
-        color: Colors.black,
-        child: Obx(() => Hero(
-              tag: _controller.tag.value,
-              child: PageView.builder(
-                controller: PageController(initialPage: index),
-                itemCount: photos.length,
-                onPageChanged: (index) => _controller.tag.value = photos[index],
-                itemBuilder: (context, index) =>
-                    buildImg(context, photos[index]),
-              ),
-            )),
+  Widget build(BuildContext context) => Obx(
+        () => ColoredBox(
+          color: controller.bgColor(),
+          child: PageView.builder(
+            controller: PageController(initialPage: index),
+            itemCount: photos.length,
+            // onPageChanged: (index) => controller.tag.value = photos[index],
+            itemBuilder: (context, index) => buildImg(context, photos[index]),
+          ),
+        ),
       );
 
   Widget buildImg(BuildContext context, String photo) => GestureDetector(
-        onTap: () => Get.back(),
-        child: photo.startsWith("http")
-            ? Image.network(photo, fit: BoxFit.cover)
-            : Image.file(File(photo), fit: BoxFit.cover),
+        onTap: () {
+          controller.bgColor.value = Colors.transparent;
+          Get.back();
+        },
+        child: Hero(
+            tag: photo,
+            child: ExtendedImage.network(
+              photo,
+              fit: BoxFit.contain,
+              enableSlideOutPage: true,
+              mode: ExtendedImageMode.gesture,
+              initGestureConfigHandler: (state) => GestureConfig(inPageView: true, initialScale: 1.0, cacheGesture: false),
+            )),
       );
 }
 
 class PhotoPageController extends GetxController {
-  PhotoPageController(this.tag);
-
-  RxString tag;
+  Rx<Color> bgColor = Colors.black.obs;
 }

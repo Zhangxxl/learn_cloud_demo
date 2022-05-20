@@ -5,12 +5,12 @@
 -optimizationpasses 5
 #包明不混合大小写
 -dontusemixedcaseclassnames
-#不去忽略非公共的库类
--dontskipnonpubliclibraryclasses
+#不去忽略非公共的库类 Flag ignored by R8
+#-dontskipnonpubliclibraryclasses
  #优化  不优化输入的类文件
 -dontoptimize
- #预校验
--dontpreverify
+#预校验 Flag ignored by R8
+#-dontpreverify
  #混淆时是否记录日志
 -verbose
  # 混淆时所采用的算法
@@ -30,8 +30,8 @@
 -keepattributes SourceFile,LineNumberTable
 
 #----------记录生成的日志数据,gradle build时在本项目根目录输出---------
-#apk 包内所有 class 的内部结构
--dump class_files.txt
+#apk 包内所有 class 的内部结构 Flag ignored by R8
+#-dump class_files.txt
 #未混淆的类和成员
 -printseeds seeds.txt
 #列出从 apk 中删除的代码
@@ -128,4 +128,20 @@
 }
 
 -keep class * extends android.webkit.WebChromeClient
+
+#-----------------------------------okhttp-----------------------------------
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-adaptresourcefilenames okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt and other security providers are available.
+-dontwarn okhttp3.internal.platform.**
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
 

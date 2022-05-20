@@ -96,7 +96,7 @@ class SendPosts extends StatelessWidget {
     EasyLoading.show(status: S.current.loading);
     final momentsPosts = MomentsPosts.empty();
     momentsPosts.content = _textController.text;
-    momentsPosts.createUser = await LCUser.getCurrent();
+    momentsPosts.createUser = (await LCUser.getCurrent())!;
     if (_controller.selectImg.isNotEmpty) {
       final map = _controller.selectImg
           .map((element) async => LCFile.fromPath(element.name, element.path));

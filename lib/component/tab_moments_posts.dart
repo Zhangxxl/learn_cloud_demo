@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
+import 'package:yicbridge_aj_app/widget/nine_grid_layout.dart';
 
+import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../model/data_object.dart';
 import '../model/moments_posts.dart';
+import '../model/user.dart';
 import '../router/routes.dart';
 import '../util/global.dart';
 
@@ -42,6 +45,7 @@ class _TabMomentsPostsState extends State<TabMomentsPosts>
     query
         .include(MomentsPosts.COLUMN_IMAGES)
         .include(MomentsPosts.COLUMN_COMMENTS)
+        .include(MomentsPosts.COLUMN_CREATE_USER)
         .orderByDescending(DataObject.COLUMN_CREATED_AT)
         .limit(20);
     List<MomentsPosts>? posts;
@@ -90,34 +94,56 @@ class _TabMomentsPostsState extends State<TabMomentsPosts>
     );
   }
 
-  Widget buildItem(MomentsPosts post) => ListTile(
-        title: Text(post.content),
-        subtitle: Wrap(
-          children: post.imgs
-              .map((e) => buildAvatar(post, post.imgs.indexOf(e)))
-              .toList(),
+  Widget buildItem(MomentsPosts post) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [buildHead(post), buildContent(post), buildImgs(post)],
         ),
       );
 
-  Widget buildAvatar(MomentsPosts post, int index) => GestureDetector(
-        onTap: () async {
-          Get.toNamed(Routes.PAGE_PHOTO, arguments: {
-            'photos': post.imgs.map((e) => e.url!).toList(),
-            'index': index,
-          });
-        },
-        child: Hero(
-          tag: post.imgs[index].url ?? post.imgs[index].toString(),
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: Image.network(post.imgs[index].url ?? "", fit: BoxFit.cover),
-          ),
-        ),
+  Widget buildContent(MomentsPosts post) => Padding(
+        padding: const EdgeInsets.only(left: 70, top: 10, bottom: 10),
+        child: Text(post.content),
       );
 
   @override
   bool get wantKeepAlive => true;
+
+  Widget buildHead(MomentsPosts post) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipOval(
+            child: (post.createUser.avatar?.url) == null
+                ? Image.asset(
+                    Assets.resources.image.icMine.path,
+                    fit: BoxFit.cover,
+                    width: 60,
+                    height: 60,
+                  )
+                : Image.network(
+                    post.createUser.avatar!.url!,
+                    fit: BoxFit.cover,
+                    width: 60,
+                    height: 60,
+                  ),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(post.createUser.username ?? post.createUser.mobile!,style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(width: 20),
+              Text(post.createdAt?.toString() ?? ""),
+            ],
+          )
+        ],
+      );
+
+  Widget buildImgs(MomentsPosts post) =>
+      NineGridView(post.imgs.map((e) => e.url!).toList(), space: 10);
 }
 
 class MomentsPostsController extends GetxController {

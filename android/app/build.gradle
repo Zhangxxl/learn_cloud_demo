@@ -26,7 +26,16 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion flutter.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -34,14 +43,12 @@ android {
 
     defaultConfig {
         applicationId "com.yicbridge.smartzj"
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdkVersion 19
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         resValue "string", "appName", rootProject.ext.appName
-        ndk {
-            abiFilters "arm64-v8a","x86"
-        }
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -55,12 +62,28 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+            applicationIdSuffix '.debug'
+            versionNameSuffix '.debug'
+        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
-            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "arm64-v8a"
+            }
         }
+    }
+    dependenciesInfo {
+        includeInApk true
+        includeInBundle true
     }
 
     android.applicationVariants.all { variant ->
@@ -81,8 +104,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:1.6.0"
-    implementation 'cn.leancloud:storage-android:8.1.3'
-    implementation 'cn.leancloud:realtime-android:8.1.3'
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation 'cn.leancloud:storage-android:8.2.6'
+    implementation 'cn.leancloud:realtime-android:8.2.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }

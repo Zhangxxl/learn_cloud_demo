@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -65,9 +66,10 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Obx(() => Text(globalController.user.value?.nickname ?? "",
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500))),
+                    Obx(() => Text(
+                        globalController.user()?.username ??
+                            globalController.user()!.mobile!,
+                        style: Theme.of(context).textTheme.headlineMedium)),
                     const SizedBox(height: 10),
                     Obx(() => Text(globalController.user.value?.mobile ?? ""))
                   ],
@@ -354,27 +356,25 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
     logger.i("install result: $result");
   }
 
-  Widget buildHead(BuildContext context, LCUser? user) {
-    return GestureDetector(
-      onTap: selectImg,
-      child: Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(color: Get.theme.primaryColor, width: 2),
-            borderRadius: const BorderRadius.all(Radius.circular(40)),
-          ),
-          padding: const EdgeInsets.all(2),
-          child: ClipOval(
-            child: user?.avatar?.url == null
-                ? Icon(Icons.man, size: 72, color: Get.theme.primaryColor)
-                : Image.network(user!.avatar!.url!, fit: BoxFit.cover),
-          )),
-    );
-  }
+  Widget buildHead(BuildContext context, LCUser? user) => GestureDetector(
+        onTap: selectAvatar,
+        child: Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              border: Border.all(color: Get.theme.primaryColor, width: 2),
+              borderRadius: const BorderRadius.all(Radius.circular(40)),
+            ),
+            padding: const EdgeInsets.all(2),
+            child: ClipOval(
+              child: user?.avatar?.url == null
+                  ? Icon(Icons.man, size: 72, color: Get.theme.primaryColor)
+                  : ExtendedImage.network(user!.avatar!.url!, fit: BoxFit.cover),
+            )),
+      );
 
-  Future<void> selectImg() async {
+  Future<void> selectAvatar() async {
     final lcUser = globalController.user.value;
     if (lcUser == null) {
       return;
