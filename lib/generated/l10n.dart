@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `An unknown error`
+  String get unknownError {
+    return Intl.message(
+      'An unknown error',
+      name: 'unknownError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abnormal network connection`
+  String get networkError {
+    return Intl.message(
+      'Abnormal network connection',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Test App`
   String get appName {
     return Intl.message(

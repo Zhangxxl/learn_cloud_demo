@@ -9,6 +9,7 @@ import '../my_color.dart';
 import '../router/routes.dart';
 import '../theme/themes.dart';
 import '../util/ext/string_ext.dart';
+import '../util/global.dart';
 import '../util/global_controller.dart';
 
 /// Copyright © 2021 yunjia Ltd.
@@ -141,6 +142,7 @@ class Login extends StatelessWidget {
       Get.find<GlobalController>().user.value = user;
       Get.offAllNamed(Routes.PAGE_HOME);
     } on Exception catch (e) {
+      logger.e(e);
       EasyLoading.showError(
           (e is LCException ? e.message : null) ?? S.current.login_fail);
     }

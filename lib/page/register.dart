@@ -98,7 +98,7 @@ class Register extends StatelessWidget {
         EasyLoading.showError(S.current.register_fail);
       }
     } on Exception {
-      EasyLoading.showError(S.current.file_error);
+      EasyLoading.showError(S.current.networkError);
     }
   }
 }

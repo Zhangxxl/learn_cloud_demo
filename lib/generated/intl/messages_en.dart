@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "modify_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "moments_posts": MessageLookupByLibrary.simpleMessage("moments posts"),
+        "networkError":
+            MessageLookupByLibrary.simpleMessage("Abnormal network connection"),
         "no_more": MessageLookupByLibrary.simpleMessage("No more"),
         "please_enter_content":
             MessageLookupByLibrary.simpleMessage("Please enter content"),
@@ -105,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_purple": MessageLookupByLibrary.simpleMessage("Purple"),
         "theme_red": MessageLookupByLibrary.simpleMessage("Red"),
         "theme_setting": MessageLookupByLibrary.simpleMessage("Theme setting"),
+        "unknownError":
+            MessageLookupByLibrary.simpleMessage("An unknown error"),
         "user_register":
             MessageLookupByLibrary.simpleMessage("New user registration"),
         "version_message": m0,
