@@ -63,7 +63,7 @@ class Register extends StatelessWidget {
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
                     enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
                     suffixIcon: IconButton(
-                      icon: ImageIcon(Assets.resources.image.icClean, size: 14, color: MyColor.gray),
+                      icon: Assets.resources.image.icClean.image(width: 14, height: 14, color: MyColor.gray),
                       onPressed: () => pwdController.clear(),
                     ),
                   ),
@@ -97,6 +97,8 @@ class Register extends StatelessWidget {
       } else {
         EasyLoading.showError(S.current.register_fail);
       }
+    } on Exception {
+      EasyLoading.showError(S.current.file_error);
     }
   }
 }

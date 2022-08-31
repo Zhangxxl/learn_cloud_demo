@@ -31,23 +31,24 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.4
-  get: ^4.6.1
-  image_picker: ^0.8.5
+  cupertino_icons: ^1.0.5
+  get: ^4.6.5
+  image_picker: ^0.8.5+3
   get_storage: ^2.0.3
-  url_launcher: ^6.1.0
-  path_provider: ^2.0.9
-  device_info_plus: ^3.2.3
+  url_launcher: ^6.1.5
+  path_provider: ^2.0.11
+  device_info_plus: ^4.1.2
   date_format: ^2.0.6
-  flutter_easyloading: ^3.0.3
+  flutter_easyloading: ^3.0.5
   pull_to_refresh: ^2.0.0
   supercharged: ^2.1.1
   dio: ^4.0.6
   logger: ^1.1.0
-  json_annotation: ^4.5.0
-  webview_flutter: ^3.0.2
-  flutter_easyrefresh: ^2.2.1
-  package_info_plus: ^1.4.2
+  json_annotation: ^4.6.0
+  webview_flutter: ^3.0.4
+  webview_flutter_web: ^0.1.0+4
+  flutter_easyrefresh: ^2.2.2
+  package_info_plus: ^1.4.3+1
   install_plugin:
     git:
       url: https://github.com/Zhangxxl/flutter_install_plugin.git
@@ -56,10 +57,10 @@ dependencies:
   my_plugin:
     path: ./my_plugin
 
-  leancloud_storage: ^0.7.8
+  leancloud_storage: ^0.7.10
   leancloud_official_plugin: ^1.0.1
-  extended_image: ^6.0.3
-  json_serializable: ^6.2.0
+  extended_image: ^6.2.1
+  json_serializable: ^6.3.1
 #  permission_handler: ^8.1.4+2
 #  badges: ^2.0.1
 #  extended_nested_scroll_view: ^3.0.0
@@ -67,15 +68,15 @@ dependencies:
 #  extended_tabs: ^2.2.0
 
 dependency_overrides:
-  json_serializable: ^6.2.0
+   json_serializable: ^6.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^2.1.10
-  flutter_lints: ^1.0.4
-  flutter_gen_runner: ^4.1.6
+  build_runner: ^2.2.0
+  flutter_lints: ^2.0.1
+  flutter_gen_runner: ^4.3.0
 
 dev_dependency_overrides:
 
@@ -132,8 +133,9 @@ flutter_gen:
   line_length: 140
 
   integrations:
-    flutter_svg: false
-    flare_flutter: false
+    flutter_svg: true
+    flare_flutter: true
+    rive: true
 
   assets:
     enabled: true

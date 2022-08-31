@@ -80,11 +80,11 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
         ),
         const SizedBox(height: 10, width: double.infinity),
         buildItem(
-            iconAsset: Assets.resources.image.icModifyPwd,
+            iconAsset: Assets.resources.image.icModifyPwd.image(width: 16,height: 16),
             text: S.of(context).modify_password,
             click: modifyPassword),
         Obx(() => buildItem(
-            iconAsset: Assets.resources.image.icCleanCache,
+            iconAsset: Assets.resources.image.icCleanCache.image(width: 16,height: 16),
             text: S.of(context).clean_cache,
             info: _controller.cacheStr.value,
             click: () {
@@ -117,17 +117,17 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
             })),
         if (GetPlatform.isAndroid)
           buildItem(
-            iconAsset: Assets.resources.image.icCheckUpdate,
+            iconAsset: Assets.resources.image.icCheckUpdate.image(width: 16,height: 16),
             text: S.of(context).check_update,
             click: () => checkAppUpdate(),
           ),
         buildItem(
-          iconAsset: Assets.resources.image.icAboutMe,
+          iconAsset: Assets.resources.image.icAboutMe.image(width: 16,height: 16),
           text: S.of(context).about_us,
           click: () => Get.toNamed(Routes.PAGE_ABOUT_ME),
         ),
         buildItem(
-            iconAsset: Assets.resources.image.icAboutMe,
+            iconAsset: Assets.resources.image.icAboutMe.image(width: 16,height: 16),
             text: S.of(context).theme_setting,
             click: () {
               if (Get.isDarkMode) {
@@ -153,7 +153,7 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
               );
             }),
         buildItem(
-            iconAsset: Assets.resources.image.icAboutMe,
+            iconAsset: Assets.resources.image.icAboutMe.image(width: 16,height: 16),
             text: S.of(context).theme_mode_setting,
             click: () async {
               final ThemeMode? result = await Get.dialog(
@@ -192,7 +192,7 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
               logger.i("result: $result");
             }),
         buildItem(
-            iconAsset: Assets.resources.image.icAboutMe,
+            iconAsset: Assets.resources.image.icAboutMe.image(width: 16,height: 16),
             text: S.of(context).change_language,
             click: () async {
               final SupportLanguage? selectLanguage =
@@ -254,7 +254,7 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   Widget buildItem(
-          {required AssetImage iconAsset,
+          {required Widget iconAsset,
           required String text,
           required VoidCallback click,
           String? info}) =>
@@ -276,7 +276,8 @@ class _TabMineState extends State<TabMine> with AutomaticKeepAliveClientMixin {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ImageIcon(iconAsset, size: 16),
+                  // ImageIcon(iconAsset, size: 16),
+                  iconAsset,
                   const SizedBox(width: 12),
                   Text(text, style: Get.theme.textTheme.subtitle1),
                   const Spacer(),

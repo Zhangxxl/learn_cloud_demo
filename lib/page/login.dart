@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:leancloud_storage/leancloud.dart';
-import 'package:yicbridge_aj_app/theme/themes.dart';
 
 import '../generated/assets.gen.dart';
 import '../generated/l10n.dart';
 import '../my_color.dart';
 import '../router/routes.dart';
+import '../theme/themes.dart';
 import '../util/ext/string_ext.dart';
 import '../util/global_controller.dart';
 
@@ -40,32 +40,35 @@ class Login extends StatelessWidget {
           children: [
             Assets.resources.image.icHome.image(width: 126, height: 95),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 22),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 14.0, horizontal: 22),
               child: TextField(
                 controller: accController,
                 decoration: InputDecoration(
                   hintText: S.of(context).accHint,
-                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
-                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: MyColor.inputBorderColor)),
+                  enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: MyColor.inputBorderColor)),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 22),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 14.0, horizontal: 22),
               child: TextField(
                 controller: pwdController,
                 decoration: InputDecoration(
                   hintText: S.of(context).pwdHint,
                   counterText: "",
-                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
-                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: MyColor.inputBorderColor)),
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: MyColor.inputBorderColor)),
+                  enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: MyColor.inputBorderColor)),
                   suffixIcon: IconButton(
                     onPressed: () => pwdController.clear(),
-                    icon: ImageIcon(
-                      Assets.resources.image.icClean,
-                      size: 14,
-                      color: MyColor.gray,
-                    ),
+                    icon: Assets.resources.image.icClean
+                        .image(width: 14, height: 14, color: MyColor.gray),
                   ),
                 ),
                 // prefixIcon: Icon()
@@ -81,7 +84,8 @@ class Login extends StatelessWidget {
                   TextButton(
                     child: Text(S.of(context).registerAcc),
                     onPressed: () async {
-                      final String? acc = await Get.toNamed(Routes.PAGE_REGISTER) as String?;
+                      final String? acc =
+                          await Get.toNamed(Routes.PAGE_REGISTER) as String?;
                       if (acc.isNotBlank()) {
                         accController.text = acc!;
                       }
@@ -103,14 +107,21 @@ class Login extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(S.of(context).login,
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white)),
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
                       ),
                       clipBehavior: Clip.antiAlias,
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                            _controller.loginEnable.value ? AppTheme.currentTheme.theme.primaryColor : MyColor.gray),
-                        shape:
-                            MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100)))),
+                            _controller.loginEnable.value
+                                ? AppTheme.currentTheme.theme.primaryColor
+                                : MyColor.gray),
+                        shape: MaterialStateProperty.all(
+                            const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100)))),
                       ),
                       onPressed: _controller.loginEnable.value ? login : null,
                     )),
@@ -125,16 +136,19 @@ class Login extends StatelessWidget {
   Future<void> login() async {
     EasyLoading.show(status: S.current.login_loading);
     try {
-      final LCUser user = await LCUser.login(accController.text, pwdController.text);
+      final LCUser user =
+          await LCUser.login(accController.text, pwdController.text);
       Get.find<GlobalController>().user.value = user;
       Get.offAllNamed(Routes.PAGE_HOME);
     } on Exception catch (e) {
-      EasyLoading.showError((e is LCException ? e.message : null) ?? S.current.login_fail);
+      EasyLoading.showError(
+          (e is LCException ? e.message : null) ?? S.current.login_fail);
     }
   }
 
   void inputListener() {
-    _controller.loginEnable.value = accController.text.isNotEmpty && pwdController.text.isNotEmpty;
+    _controller.loginEnable.value =
+        accController.text.isNotEmpty && pwdController.text.isNotEmpty;
   }
 }
 

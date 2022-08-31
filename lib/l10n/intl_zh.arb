@@ -1,5 +1,7 @@
 {
   "@@locale": "zh",
+  "unknowError":"未知错误",
+  "networkError":"网络连接异常",
   "appName": "测试应用",
   "accHint": "请输入账号",
   "pwdHint": "请输入密码",

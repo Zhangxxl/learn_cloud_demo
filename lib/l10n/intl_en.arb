@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "unknowError":"An unknown error",
+  "networkError":"Abnormal network connection",
   "appName": "Test App",
   "accHint": "Please input account",
   "pwdHint": "Please input password",
